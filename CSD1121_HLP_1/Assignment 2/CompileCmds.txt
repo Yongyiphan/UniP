@@ -1,0 +1,2 @@
+gcc -std=c11 -pedantic-errors -Wstrict-prototypes -Wall -Wextra -Werror qdriver.c q.c -o q.out
+diff -y --strip-trailing-cr --suppress-common-lines your-output.txt output.txt

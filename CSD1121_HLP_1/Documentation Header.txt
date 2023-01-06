@@ -1,0 +1,17 @@
+// Provide file-level documentation block as described in tutorial specification
+/*!
+@file q.c
+@author yong yip han edgar (y.yiphanedgar) 
+@course RTIS CSD1121 
+@section csd1121-a.sg
+@tutorial 
+@date
+@brief
+
+*//*______________________________________________________________________*/
+
+/*
+@brief
+@params
+@return
+*//*______________________________________________________________________*/
