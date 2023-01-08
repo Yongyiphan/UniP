@@ -34,22 +34,7 @@ namespace {
 // an anonymous namespace ...
 namespace {
   // Declare/define your helper functions here ...
-  std::tuple<std::size_t, std::size_t> word_count(char* line){
-      size_t wc = 0, bc = 0;
-      char prev = ' ';
-      while(*line != '\0'){
-        if (*line == ' ' && prev != ' '){
-          wc++;
-        }
-        prev = *line;
-        bc++;
-        line++;
-      }
-      if(prev != ' '){
-        wc++;
-      }
-      return std::make_pair(wc, bc);
-  }
+  
 
   void printsingle(int lc, int wc, int bc){
     int spacing = 7;
@@ -66,7 +51,8 @@ namespace hlp2 {
   \details  PseudoCode
     Init line_c, word, byte counter
     for each fiel in argv
-      init line, word byte, counter*/
+    init line, word byte, counter
+  */
   void wc(int argc, char **argv){
     //Initialise Counters
     int line_c = 0, word_c = 0, byte_c = 0;
@@ -79,23 +65,57 @@ namespace hlp2 {
       if (!reader){
         return;
       }
-      char line[MAX_LINE_LEN];
-      if (!reader){
-        return;
+      /*char c, prev = ' ';
+      while(reader.get(c)){
+        if(c ==  EOF){
+          break;
+        }
+        ibyte_c++;
+        if(c == '\n'){
+          iline_c++;
+        }
+
+        if(c == ' ' && prev != ' '){
+          iword_c++;
+          std::cout << "|" << std::endl;
+        }
+        std::cout << c;
+        prev = c;
+      }*/
+      int ct = 0;
+      char c, line[MAX_LINE_LEN], prev  = ' ';
+      while((c = reader.get()) != EOF){
+        ibyte_c++;
+        if(c == '\n'){
+          iline_c++;
+          line[ct] = '\0';
+          std::cout << line <<std::endl;
+          char *s = line;
+          while(*s != '\0'){
+            if(*s == ' ' && prev != ' '){
+              iword_c++;
+              std::cout << iword_c << std::endl;
+            }
+            prev = *s;
+            s++;
+          }
+          if(prev != ' ')
+            ++iword_c;
+          ct = 0;
+          prev = ' ';
+          continue;
+        }
+        line[ct++] = c;
+
+
       }
-      while(reader.getline(line, MAX_LINE_LEN - 1)){
-        iline_c++;
-        std::tuple<std::size_t, std::size_t> result = word_count(line);
-        iword_c += int(std::get<0>(result));
-        ibyte_c += int(std::get<1>(result));
-      }
-      std::cout << line;
-      ibyte_c += iline_c;
-      printsingle(iline_c, iword_c, ibyte_c);
-      std::cout << argv[i] << "\n";
+      printsingle(iline_c,iword_c, ibyte_c);
+      std::cout << argv[i];
       line_c += iline_c;
       word_c += iword_c;
       byte_c += ibyte_c;
+
+
       reader.close();
     }
     if (argc > 2){
