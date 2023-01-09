@@ -7,7 +7,6 @@
  \par       Programming Lab 1
  \date      06-01-2023
  \brief     File-header Documentation for wc.hpp
-    
 */
 
 // A handout on documenting code using Doxygen is available on the course web page.

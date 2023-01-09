@@ -14,6 +14,7 @@ File6 = $(Testdir)pg69703.txt
 wc.out: $(OBJS) 
 	g++ $(GCC_OPTIONS) $(OBJS) -o wc.out
 
+
 161:
 	make
 	./wc.out $(File1)

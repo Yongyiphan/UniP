@@ -2,6 +2,15 @@
 // Don't forget to include file-header and function-level Doxygen documentation blocks!!!
 // A handout on documenting code using Doxygen is available on the course web page.
 
+/*!*****************************************
+ \file      wc.cpp
+ \author    Edgar Yong
+ \par       DP email: y.yiphanedgar\@digipen.edu
+ \par       Course: CSD 1171
+ \par       Programming Lab 1
+ \date      06-01-2023
+ \brief     File-header Documentation for wc.cpp
+*/
 // Your definition of function wc can only rely on the following C++ Standard Library headers:
 
 #include <iostream>
@@ -34,8 +43,32 @@ namespace {
 // an anonymous namespace ...
 namespace {
   // Declare/define your helper functions here ...
-  
-
+  /*!
+  \brief      Find number of words within a string (sentence)
+  \param[in]  line Pointer to start of char[]
+  \return     Word Count
+  */
+  int getwc(char *line){
+    int iword_c = 0;
+    char *s, prev;
+    for(s = line, prev = ' '; *s != '\0'; prev = *s, s++){
+      if(*s == ' ' && prev != ' '){
+        iword_c++;
+      }
+    }
+    //Check if sentence ends with a word
+    if(prev != ' '){
+      ++iword_c;
+    }
+    return iword_c;
+}
+  /*!
+  \brief      Function to print out values in desired table format
+  \param[in]  lc Line Count
+  \param[in]  wc Word Count
+  \param[in]  bc Byte Count
+  \return     None
+  */
   void printsingle(int lc, int wc, int bc){
     int spacing = 7;
     std::cout << std::setw(spacing) << lc << " ";
@@ -48,10 +81,11 @@ namespace {
 namespace hlp2 {
   // define function wc here ...
   /*!
-  \details  PseudoCode
-    Init line_c, word, byte counter
-    for each fiel in argv
-    init line, word byte, counter
+  \brief      Find the word count in a file
+  \param[in]  argc Number of files passed as argument
+  \param[in]  argv String of filenames passed as argument
+  \return     None
+  \exception  File Close, function exits if unable to open file
   */
   void wc(int argc, char **argv){
     //Initialise Counters
@@ -65,57 +99,27 @@ namespace hlp2 {
       if (!reader){
         return;
       }
-      /*char c, prev = ' ';
-      while(reader.get(c)){
-        if(c ==  EOF){
-          break;
-        }
-        ibyte_c++;
-        if(c == '\n'){
-          iline_c++;
-        }
-
-        if(c == ' ' && prev != ' '){
-          iword_c++;
-          std::cout << "|" << std::endl;
-        }
-        std::cout << c;
-        prev = c;
-      }*/
       int ct = 0;
-      char c, line[MAX_LINE_LEN], prev  = ' ';
+      char c, line[MAX_LINE_LEN];
       while((c = reader.get()) != EOF){
         ibyte_c++;
         if(c == '\n'){
           iline_c++;
           line[ct] = '\0';
-          std::cout << line <<std::endl;
-          char *s = line;
-          while(*s != '\0'){
-            if(*s == ' ' && prev != ' '){
-              iword_c++;
-              std::cout << iword_c << std::endl;
-            }
-            prev = *s;
-            s++;
-          }
-          if(prev != ' ')
-            ++iword_c;
+          iword_c += getwc(line);
           ct = 0;
-          prev = ' ';
           continue;
         }
         line[ct++] = c;
-
-
       }
+      line[ct] = '\0';
+      iword_c += getwc(line);
+
       printsingle(iline_c,iword_c, ibyte_c);
-      std::cout << argv[i];
+      std::cout << argv[i] << std::endl;
       line_c += iline_c;
       word_c += iword_c;
       byte_c += ibyte_c;
-
-
       reader.close();
     }
     if (argc > 2){
