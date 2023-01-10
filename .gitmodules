@@ -1,6 +1,10 @@
-[submodule "CSD1401_SEP_1"]
-	path = CSD1401_SEP_1
-	url = https://github.com/Yongyiphan/CSD1401.git
 [submodule "CSD1401_Playground"]
 	path = CSD1401_Playground
 	url = https://github.com/Yongyiphan/CSD1401-Playground.git
+[submodule "CSD1401_SEP_1"]
+	path = CSD1401_SEP_1
+	url = https://github.com/Yongyiphan/CSD1401.git
+
+[submodule "CSD1451_SEP_2"]
+	path = CSD1451_SEP_2
+	url = https://github.com/Yongyiphan/CSD1451_SushiWorld
