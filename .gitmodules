@@ -6,5 +6,5 @@
 	url = https://github.com/Yongyiphan/CSD1401.git
 
 [submodule "CSD1451_SEP_2"]
-	path = CSD1451_SEP_2
+	path = CSD1451_SEP_2/Project/CSD1451
 	url = https://github.com/Yongyiphan/CSD1451_SushiWorld
