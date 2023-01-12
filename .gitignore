@@ -4,7 +4,7 @@
 **/.vs
 **/v17
 **/bin
-**.lnk
+**/.vscode
 
 *vcxproj.user
 *vcxproj.filters
