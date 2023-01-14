@@ -1,0 +1,10 @@
+
+**/docs
+**/.tmp
+**/.vs
+**/v17
+**/bin
+**/.vscode
+
+*vcxproj.user
+*vcxproj.filters
