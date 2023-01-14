@@ -1,9 +1,0 @@
-
-**/docs
-**/.tmp
-**/.vs
-**/v17
-**/bin
-
-*vcxproj.user
-*vcxproj.filters
