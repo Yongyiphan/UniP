@@ -1,7 +1,4 @@
-﻿  pch.cpp
-  GameStateManager.cpp
-  Input.cpp
-  Level1.cpp
+﻿  Level1.cpp
   Level2.cpp
   System.cpp
   csd1130_gsm.cpp

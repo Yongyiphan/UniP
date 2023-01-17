@@ -29,28 +29,35 @@ int main()
     //GSM initialize
     GSM_Initialize(GS_LEVEL1);
 
-    //Runs game loop
+    //Runs game loop while current game state is not QUIT
     while (current != GS_QUIT)
     {
-        
+        //If current game stae != restart
         if (current != GS_RESTART) {
+			//Update function pointers.
 			GSM_Update();
+            //Load using updated function pointers
             fpLoad();
         }
         else {
+            //retrieve previous game state
             current = previous;
             next = previous;
         }
+        //Initialise game state using function pointers
         fpInitialize();
         while (current == next) {
             Input_Handle();
             fpUpdate();
             fpDraw();
         }
+        //If next state changed, unload
         fpFree();
+        //If current state request for restart, continue to next game cycle, no cycle of load. 
         if (next != GS_RESTART) {
             fpUnload();
         }
+        //shift state storing variables, 
         previous = current;
         current = next;
     }
