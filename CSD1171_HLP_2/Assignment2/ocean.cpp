@@ -1,3 +1,20 @@
+/*!*****************************************
+ \file      ocean.cpp
+ \author    Edgar Yong
+ \par       DP email: y.yiphanedgar\@digipen.edu
+ \par       Course: CSD 1171
+ \par       Programming Assignment 2
+ \date      19-01-2023
+ \brief     File-header Documentation for ocean.cpp
+ \brief     This file contains function to
+            Create an Ocean Object and fill it with default values
+            Destroy created ocean object
+            Place Boat onto the ocean's grid
+            Shoot onto the grid and check for damages done to boat and update fields accordingly
+
+            GetShot = to get the stats of the boats' status
+            DumpOcean print out the grid onto a text file
+*/
 #include "ocean.h"
 #include <iostream> // std::cout
 #include <iomanip>  // std::setw
@@ -8,73 +25,154 @@ namespace HLP2 {
     int const HIT_OFFSET  {100}; //!< Add this to the boat ID
 
     /*
-     * ALL STUDENT IMPLEMENTATION GOES HERE 
+    \brief      Create an ocean object and fill it with values
+    \param[in]  num_boat to generate array to contain given number of boats
+    \param[in]  hor_size number of columns in the grid
+    \param[in]  ver_size number of rows in the grid
+    \return     A filled ocean object
     */
     Ocean*CreateOcean(int num_boat, int hor_size, int ver_size){
-      /*
-      TODO:
-        Dynamically allocate array of int of hor_size * ver_size elements
-        3 new statements; #IMPT
-      */
      int *grid = new int[hor_size * ver_size];
-     for(int i = hor_size*ver_size;i--; grid[i] = DamageType::dtOK);
+     for(int i = 0; i < hor_size*ver_size; i++){
+      grid[i] = DamageType::dtOK;
+     }
 
 
-     Boat *b = new Boat[num_boat];
-     for(int i = num_boat; i--; b[i] = {0,0});
+     Boat *b = new Boat[sizeof(Boat) * num_boat];
+     for(int i = 0; i < num_boat; i++){
+      b[i] = {0,0,oHORIZONTAL, 0,0};
+     }
 
      return new Ocean{grid, b, num_boat, hor_size, ver_size, {0,0,0,0}};
     }
 
+    /*
+    \brief    Destroy/free the ocean object
+    \param[in] theocean pointer to the ocean object
+    */
+    
     void DestroyOcean(Ocean *theocean){
       delete[] theocean->boats;
       delete[] theocean->grid;
       delete theocean;
     }
 
-    BoatPlacement PlaceBoat(Ocean &ocean, const Boat&boat){
-
-    /*struct Boat {
-      int hits;                 //!< Hits taken so far
-      int ID;                   //!< Unique ID 
-      Orientation orientation;  //!< Horizontal/Vertical
-      Point position;           //!< x-y coordinate (left-top)
-    };
-
-    struct Ocean {
-      int *grid;        //!< The 2D ocean 
-      Boat *boats;      //!< The dynamic array of boats
-      int num_boats;    //!< Number of boats in the ocean
-      int x_size;       //!< Ocean size along x-axis
-      int y_size;       //!< Ocean size along y-axis
-      ShotStats stats;  //!< Status of the attack
-    };
-    The client will create a boat, specify a position to locate this boat in the ocean, 
-    and then call this function to record the boat's placement in the ocean. 
-    Think about all the things that would make a boat be invalid for placement: 
-      the boat's position may be outside the ocean; 
-      even if the boat's position is inside the ocean, the boat has a finite size [with length BOAT_LENGTH which is a
-      constant variable defined in ] and a portion of the boat may lie outside the ocean;
-      or, the boat's position(s) might be occupied by previously placed boat(s).
-
-      Given the ocean's dimensions, it is straightforward to determine if the boat's position is outside
-      the ocean. For a boat of length BOAT_LENGTH to fit in the ocean, it must be completely inside the
-      ocean and not overlap with another previously positioned boat. This can be checked using the
-      boat's position and orientation. If the boat can fit in the ocean, determining whether these
-      positions are already occupied by other boats is also straightforward. Straightforward because
-      function CreateOcean has initialized the ocean's grid with value DamageType::dtOK .
-      The return value indicates whether or not the boat could be placed in the ocean. See for
-      valid values of type BoatPlacement
+    /*
+    \brief      Place a boat onto the ocean grid
+    \param[in]  ocean -> reference to the ocean object
+    \param[in]  boat  -> const reference to the boat object
+    \return     status stating whether the boat's place is allowed
     */
+    BoatPlacement PlaceBoat(Ocean &ocean, const Boat&boat){
    
-
     //Edge Cases: Boat out of position:
-    if(boat.position.x * boat.position.y >= )
-
-
-
+    if (boat.position.x < 0 || boat.position.x >= ocean.x_size ||
+        boat.position.y < 0 || boat.position.y >= ocean.y_size)
+    {
+      return bpREJECTED;
     }
 
+    if(boat.ID > ocean.num_boats){
+      return bpREJECTED;
+    }
+    switch (boat.orientation)
+    {
+    case oHORIZONTAL:
+      if((boat.position.x + BOAT_LENGTH )> ocean.x_size){
+        return bpREJECTED;
+      }
+      for(int i = 0; i< BOAT_LENGTH;i++){
+        if (ocean.grid[(boat.position.y * ocean.x_size) + boat.position.x +i] != DamageType::dtOK)
+          return bpREJECTED;
+      }
+      for(int i = 0;i<BOAT_LENGTH;i++){
+        //Change grid to boat id
+        ocean.grid[(boat.position.y * ocean.x_size) + boat.position.x +i] = boat.ID;
+      }
+      break;
+      
+    case oVERTICAL:
+      if((boat.position.y + BOAT_LENGTH )> ocean.y_size){
+        return bpREJECTED;
+      }
+      for(int i =0; i<BOAT_LENGTH;i++){
+        if(ocean.grid[((boat.position.y + i) * ocean.x_size) + boat.position.x] != DamageType::dtOK){
+          return bpREJECTED;
+        }
+      }
+      for(int i = 0;i<BOAT_LENGTH;i++){
+        ocean.grid[((boat.position.y + i) * ocean.x_size) + boat.position.x] = boat.ID;
+      }
+      break;
+    }
+
+    return bpACCEPTED;
+    }
+
+
+    /*
+    \brief      simulate shooting at the grid of boats
+    \param[in]  ocean -> reference to the ocean object
+    \param[in]  coordinate -> reference to a point struct containing x, and y positions
+    \return     a status representing is a boat is hit, sunk or the shot missed a boat
+
+    */
+    ShotResult TakeShot(Ocean&ocean, Point const &coordinate){
+      
+      if((coordinate.x < 0  || coordinate.x > ocean.x_size) || 
+         (coordinate.y < 0  || coordinate.y > ocean.y_size)){
+          return srILLEGAL;
+      }
+
+      //coord in 1D
+      /*
+      [0] [1] [2]
+      [3] [4] [5] 
+      [6] [7] [8]
+      4 = 1 * 1 + 3  */
+      int coord = coordinate.y * ocean.x_size + coordinate.x;
+      if (coord > ocean.x_size * ocean.y_size){
+        return srILLEGAL;
+      }
+      int V = ocean.grid[coord];
+      //ok = 0
+      if(V == DamageType::dtOK){ 
+        ocean.stats.misses++;
+        ocean.grid[coord] = DamageType::dtBLOWNUP;
+        return srMISS;
+      }
+      //blownup = -1
+      if(V == DamageType::dtBLOWNUP || (V > HIT_OFFSET )){
+        ocean.stats.duplicates++;
+        return srDUPLICATE;
+      }
+
+      if(V > 0 && V < HIT_OFFSET){
+        ocean.stats.hits++;
+        ocean.boats[V - 1].hits++;
+        ocean.grid[coord] += HIT_OFFSET;
+        if(ocean.boats[V - 1].hits == BOAT_LENGTH){
+          ocean.stats.sunk++;
+          return srSUNK;
+        }
+      }
+      return srHIT;
+    }
+
+    /*
+    \brief      Retrieve the stats of boats on the grid
+    \param[in]  ocean -> reference to the ocean object 
+    \return     a shotstat struct that contains values recorded in the ocean object
+    */
+    ShotStats GetShotStats(Ocean const &ocean)
+    {
+      ShotStats stats;
+      stats.duplicates = ocean.stats.duplicates;
+      stats.hits = ocean.stats.hits;
+      stats.misses = ocean.stats.misses;
+      stats.sunk = ocean.stats.sunk;
+      return stats;
+    }
     /**************************************************************************/
     /*!
       \brief

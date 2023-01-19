@@ -9,6 +9,8 @@ OBJS      = ocean-driver.o ocean.o PRNG.o
 # name of executable program
 EXEC      = ocean.out
 
+OutDir = ./output+files/
+
 # by convention the default target (the target that is built when writing
 # only make on the command line) should be called all and it should
 # be the first target in a makefile
@@ -27,6 +29,10 @@ all : $(EXEC)
 # options $(CXX_FLAGS) specified on line 6
 $(EXEC) : $(OBJS)
 	$(CXX) $(CXX_FLAGS) $(OBJS) -o $(EXEC) $(LDLIBS)
+
+debug: $(OBJS)
+	$(CXX) $(CXX_FLAGS) $(OBJS) -o debug-ocean.out $(LDLIBS) -g
+
 
 # target ocean.o depends on ocean.cpp, ocean.h
 # and is created with command $(CXX) given the options $(CXX_FLAGS)
@@ -64,24 +70,25 @@ test-all : test1 test2 test3 test4 test5 test6
 
 test1 : $(EXEC)
 	./$(EXEC) 1 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
 
 test2 : $(EXEC)
 	./$(EXEC) 2 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
 
 test3 : $(EXEC)
 	./$(EXEC) 3 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
 
 test4 : $(EXEC)
 	./$(EXEC) 4 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
 
 test5 : $(EXEC)
 	./$(EXEC) 5 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
 
 test6 : $(EXEC)
 	./$(EXEC) 6 > your-$@.txt
-	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $@.txt
+	diff -y --strip-trailing-cr --suppress-common-lines your-$@.txt $(OutDir)$@.txt
+
