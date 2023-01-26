@@ -21,42 +21,20 @@ namespace hlp2{
     \return     reformatted word
     */
     std::string to_piglatin(std::string word){
-        std::string vowel{"aeiouAEIOU"}, store, temp;
-        bool capital = false;
-        if (isupper(word[0])){
-            capital  =true;
-            word[0] = tolower(word[0]);
-        }
-        if(vowel.find_first_of(word[0]) != std::string::npos){
-            store = word + "-yay";
-        }
+        std::string vowel{"aeiouAEIOU"}, store, temp, v;
+        bool capital = isupper(word[0]) ? true : false, firsty = toupper(word[0]) == 'Y' ? true : false, found = false; 
+        if(capital) word[0] = tolower(word[0]);
+        if(vowel.find_first_of(word[0]) != std::string::npos) store = word + "-yay";
         else{
-            std::string v = "";
-            bool  firsty = toupper(word[0]) == 'Y' ? true : false; 
-            bool found = false;
             for(std::string::iterator it = word.begin(); it != word.end();it++){
                 if(!found && (vowel.find_first_of(*it) != std::string::npos || (!firsty && toupper(*it) == 'Y') )){
-                    v = *it;
-                    found = true;
-                    continue;
+                    v = *it;found = true;continue;
                 }
-                if(found){
-                    store += *it;
-                }
-                else{
-                    temp += *it;
-                }
+                if(found) store += *it; else temp += *it;
             }            
-            if(found){
-                store = v + store + temp + "-ay";
-            }
-            else{
-                store = v + store + temp + "-way";
-            }
+            if(found) store = v + store + temp + "-ay";else store = v + store + temp + "-way";
         }
-        if(capital){
-            store[0] = toupper(store[0]);
-        }
+        if(capital)store[0] = toupper(store[0]);
         return store;
     }
 }
