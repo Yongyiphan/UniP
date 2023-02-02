@@ -6,7 +6,7 @@
 \date   	January 01, 20xx
 \brief		ToDo: give a brief explanation here
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
@@ -42,8 +42,8 @@ void GameStateMgrInit(unsigned int gameStateInit)
 	gGameStateInit = gameStateInit;
 
 	// reset the current, previoud and next game
-	gGameStateCurr = 
-	gGameStatePrev = 
+	gGameStateCurr = gGameStateInit;
+	gGameStatePrev = gGameStateInit;
 	gGameStateNext = gGameStateInit;
 
 	// call the update to set the function pointers
@@ -63,7 +63,12 @@ void GameStateMgrUpdate()
 	switch (gGameStateCurr)
 	{
 	case GS_ASTEROIDS:
-		
+		GameStateLoad = GameStateAsteroidsLoad;
+		GameStateInit = GameStateAsteroidsInit;
+		GameStateUpdate = GameStateAsteroidsUpdate;
+		GameStateDraw = GameStateAsteroidsDraw;
+		GameStateFree = GameStateAsteroidsFree;
+		GameStateUnload = GameStateAsteroidsUnload;
 		break;
 	default:
 		AE_FATAL_ERROR("invalid state!!");

@@ -51,7 +51,8 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 
 
 
-	GameStateMgrInit(GS_QUIT);
+	//GameStateMgrInit(GS_QUIT);
+	GameStateMgrInit(GS_ASTEROIDS);
 
 	while(gGameStateCurr != GS_QUIT)
 	{
@@ -73,15 +74,10 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 		while(gGameStateCurr == gGameStateNext)
 		{
 			AESysFrameStart();
-
 			AEInputUpdate();
-
 			GameStateUpdate();
-
 			GameStateDraw();
-			
 			AESysFrameEnd();
-
 			// check if forcing the application to quit
 			if ((AESysDoesWindowExist() == false) || AEInputCheckTriggered(AEVK_ESCAPE))
 				gGameStateNext = GS_QUIT;
