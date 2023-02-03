@@ -1,0 +1,6 @@
+AE V3.08
+
+Built with MSVS2019 Compiler
+Bug fixes
+Added FreeType for True Type Font support
+Is a Dynamic Library (generates a .dll)
