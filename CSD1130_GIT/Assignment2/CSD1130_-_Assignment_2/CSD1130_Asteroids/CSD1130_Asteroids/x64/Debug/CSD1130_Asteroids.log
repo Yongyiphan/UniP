@@ -1,8 +1,1 @@
-﻿  Collision.cpp
-  GameStateMgr.cpp
-  GameState_Asteroids.cpp
-C:\Users\edgar\Documents\Personal Progamming\UniP\CSD1130_GIT\Assignment2\CSD1130_-_Assignment_2\CSD1130_Asteroids\CSD1130_Asteroids\Src\GameState_Asteroids.cpp(622,40): warning C4100: 'dt': unreferenced formal parameter
-C:\Users\edgar\Documents\Personal Progamming\UniP\CSD1130_GIT\Assignment2\CSD1130_-_Assignment_2\CSD1130_Asteroids\CSD1130_Asteroids\Src\GameState_Asteroids.cpp(622,30): warning C4100: 'ship': unreferenced formal parameter
-  Main.cpp
-  Generating Code...
-  CSD1130_Asteroids.vcxproj -> C:\Users\edgar\Documents\Personal Progamming\UniP\CSD1130_GIT\Assignment2\CSD1130_-_Assignment_2\CSD1130_Asteroids\Bin\CSD1130_AsteroidsD.exe
+﻿  CSD1130_Asteroids.vcxproj -> C:\Users\edgar\Documents\Personal Progamming\UniP\CSD1130_GIT\Assignment2\CSD1130_-_Assignment_2\CSD1130_Asteroids\Bin\CSD1130_AsteroidsD.exe
