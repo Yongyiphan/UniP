@@ -1,10 +1,12 @@
 /******************************************************************************/
 /*!
 \file		GameStateMgr.cpp
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	January 01, 20xx
-\brief		ToDo: give a brief explanation here
+\author 	Yong Yip Han, Edgar
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	February 02, 2023
+\brief		This File contains definition for functions to
+			GameStateMgrInit()		-> Initialise the starting state of the game state manager
+			GameStateMgrUpdate()	-> Game loop to call function pointers to execute states' functions
 
 Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
@@ -33,7 +35,8 @@ void (*GameStateUnload)()	= 0;
 
 /******************************************************************************/
 /*!
-
+\brief		Initializes the game state manager
+\param[in]	gameStateInit	-> starting game state to run
 */
 /******************************************************************************/
 void GameStateMgrInit(unsigned int gameStateInit)
@@ -52,7 +55,7 @@ void GameStateMgrInit(unsigned int gameStateInit)
 
 /******************************************************************************/
 /*!
-
+\brief		Called every game loops to call states' functions using function pointers
 */
 /******************************************************************************/
 void GameStateMgrUpdate()
@@ -62,7 +65,7 @@ void GameStateMgrUpdate()
 
 	switch (gGameStateCurr)
 	{
-	case GS_ASTEROIDS:
+	case GS_ASTEROIDS:	//Assigned function to be pointed to
 		GameStateLoad = GameStateAsteroidsLoad;
 		GameStateInit = GameStateAsteroidsInit;
 		GameStateUpdate = GameStateAsteroidsUpdate;

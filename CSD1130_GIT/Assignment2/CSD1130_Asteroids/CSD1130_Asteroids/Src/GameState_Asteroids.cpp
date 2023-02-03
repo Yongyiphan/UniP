@@ -1,12 +1,22 @@
 /******************************************************************************/
 /*!
 \file		GameState_Asteroids.cpp
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	January 01, 20xx
-\brief		ToDo: give a brief explanation here
+\author 	Yong Yip Han, Edgar
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	February 02, 2023
+\brief		This File contains the defnitions for functions to
+			GameStateAsteroidsLoad() -> to load in all meshes for drawing
+			GameStateAsteroidsInit() -> initialize starting variables and locations of space ship and asteroids
+			GameStateAsteroidsUpdate() -> game loops which contains the game's logic
+			GameStateAsteroidsDraw() -> draw game objects into the screen
+			GameStateAsteroidsFree() -> release game objects
+			GameStateAsteroidsUnload() -> release previously created sprites
+			This Files also contains the definitions for structs that represent
+			Unique object types
+			Object Instance
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
@@ -105,16 +115,24 @@ static long					sShipLives;									// The number of lives left
 // the score = number of asteroid destroyed
 static unsigned long		sScore;										// Current score
 
+// to signal print an update of the player's remaining lives and score
+static bool onValueChange = true;
 // ---------------------------------------------------------------------------
 
 // functions to create/destroy a game object instance
 GameObjInst *		gameObjInstCreate (unsigned long type, float scale, 
 											   AEVec2 * pPos, AEVec2 * pVel, float dir);
 void					gameObjInstDestroy(GameObjInst * pInst);
-
+void					GenerateAsteroid();
 f32							acceleration{ 0.f };						// Value for keeping track of acceleration
 f32							accspeed{ 15.f };							// Value to increment acceleration by
 
+enum BULLET_TYPES {
+	DEFAULT,
+	SPRAY,
+	CIRCLE
+};
+BULLET_TYPES  CurrentBT;
 /******************************************************************************/
 /*!
 	"Load" function of this state
@@ -218,7 +236,6 @@ void GameStateAsteroidsInit(void)
 
 	// CREATE 4 INITIAL ASTEROIDS INSTANCES USING THE "gameObjInstCreate" FUNCTION
 	const int startingAsteroidCount = 4;
-	sGameObjInstNum = 0;
 	AEVec2 startpos[startingAsteroidCount] = { {-80,100} ,{350,50},{150,-200},{-100,-250} };
 	AEVec2 startvel[startingAsteroidCount] = { 
 		{20,20} ,
@@ -226,14 +243,15 @@ void GameStateAsteroidsInit(void)
 		{40,40},
 		{50,50} 
 	};
-	for (int i = 0; i < startingAsteroidCount; i++, sGameObjInstNum++) {
-
-		gameObjInstCreate(TYPE_ASTEROID, 20.f * (i + 1), &startpos[i], &startvel[i], AERandFloat() * 2 * PI);
+	for (int i = 0; i < startingAsteroidCount; i++) {
+		GenerateAsteroid();
+		//gameObjInstCreate(TYPE_ASTEROID, 20.f * (i + 1), &startpos[i], &startvel[i], AERandFloat() * 2 * PI);
 	}
 
 	// reset the score and the number of ships
 	sScore      = 0;
 	sShipLives  = SHIP_INITIAL_NUM;
+	CurrentBT = DEFAULT;
 
 }
 
@@ -294,21 +312,44 @@ void GameStateAsteroidsUpdate(void)
 		spShip->dirCurr -= SHIP_ROT_SPEED * (float)(AEFrameRateControllerGetFrameTime());
 		spShip->dirCurr = AEWrap(spShip->dirCurr, -PI, PI);
 	}
-
+	
+	
+	if (AEInputCheckTriggered(AEVK_1)) {
+		CurrentBT = DEFAULT;
+	}
+	if (AEInputCheckTriggered(AEVK_2)) {
+		CurrentBT = SPRAY;
+	}
+	if (AEInputCheckTriggered(AEVK_3)) {
+		CurrentBT = CIRCLE;
+	}
 
 	// Shoot a bullet if space is triggered (Create a new object instance)
-	//if (AEInputCheckCurr(AEVK_SPACE))
 	if (AEInputCheckTriggered(AEVK_SPACE))
 	{
 		// Get the bullet's direction according to the ship's direction
 		// Set the velocity
 		// Create an instance
 		AEVec2 bulletpos = spShip->posCurr, bulletvel{ spShip->velCurr };
-		gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr);
-		/*int bullet = 36;
-		for (int i = 0; i < bullet; i++) {
-			gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr + i * 2 * PI / bullet);
-		}*/
+		/*
+		*/
+		int bullet;
+		switch (CurrentBT) {
+		case DEFAULT:
+			gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr);
+			break;
+		case SPRAY:
+			gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr - 1 * PI / 12);
+			gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr + 0 * PI / 12);
+			gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr + 1 * PI / 12);
+			break;
+		case CIRCLE:
+			bullet = 36;
+			for (int i = 0; i < bullet; i++) {
+				gameObjInstCreate(TYPE_BULLET, 10, &bulletpos, &bulletvel, spShip->dirCurr + i * 2 * PI / bullet);
+			}
+			break;
+		};
 	}
 
 	// ======================================================
@@ -325,12 +366,16 @@ void GameStateAsteroidsUpdate(void)
 		//Get AABB
 		AEVec2 boundingOffset{ BOUNDING_RECT_SIZE / 2.f, BOUNDING_RECT_SIZE / 2.f };
 		AEVec2Scale(&boundingOffset, &boundingOffset, o.scale);
-		AEVec2Add(&o.boundingBox.min, &o.posCurr, &boundingOffset);
 		AEVec2Sub(&o.boundingBox.min, &o.posCurr, &boundingOffset);
+		AEVec2Add(&o.boundingBox.max, &o.posCurr, &boundingOffset);
 
 		//Update Instances's position
 		AEVec2 v0{ 0 };
 		AEVec2Scale(&v0, &o.velCurr, dt);
+		if (o.pObject->type == TYPE_BULLET) {
+			AEVec2Set(&v0, cosf(o.dirCurr), sinf(o.dirCurr));
+			AEVec2Scale(&v0, &v0, BULLET_SPEED * dt * 2);
+		}
 		AEVec2Add(&o.posCurr, &o.posCurr, &v0);
 	}
 	
@@ -361,36 +406,52 @@ void GameStateAsteroidsUpdate(void)
 					Update game behavior accordingly
 					Update "Object instances array"
 	*/
-	for (unsigned int i = 0; i < GAME_OBJ_NUM_MAX; i++) {
-		GameObjInst* object = sGameObjInstList + i;
-		if ((object->flag & FLAG_ACTIVE) == 0)
-			continue;
-		if (object->pObject->type == TYPE_ASTEROID) {
-			for (auto& oi2 : sGameObjInstList) {
-				if ((oi2.flag & FLAG_ACTIVE) == 0)
-					continue;
-				if (oi2.posCurr.x == object->posCurr.x && oi2.posCurr.y == object->posCurr.y) {
-					//Found ownself
-					continue;
-				}
-				if (oi2.pObject->type == TYPE_SHIP) {
-					if (CollisionIntersection_RectRect(object->boundingBox, object->posCurr, oi2.boundingBox, oi2.posCurr)) {
-						gameObjInstDestroy(object);
-						//Decrement Ship Lives
-						sShipLives--;
+	if (sShipLives >= 0 && sScore < 5000) {
+		
+		bool spawnAsteroids = false;
+		for (unsigned int i = 0; i < GAME_OBJ_NUM_MAX; i++) {
+			GameObjInst* oi1 = sGameObjInstList + i;
+			if ((oi1->flag & FLAG_ACTIVE) == 0)
+				continue;
+			if (oi1->pObject->type == TYPE_ASTEROID) {
+				for (auto& oi2 : sGameObjInstList) {
+					if ((oi2.flag & FLAG_ACTIVE) == 0)
+						continue;
+					if (oi2.posCurr.x == oi1->posCurr.x && oi2.posCurr.y == oi1->posCurr.y) {
+						//Found ownself
+						continue;
 					}
-				}
-				if (oi2.pObject->type == TYPE_BULLET) {
-					if (CollisionIntersection_RectRect(object->boundingBox, object->posCurr, oi2.boundingBox, oi2.posCurr)) {
-						//Kill self
-						gameObjInstDestroy(object);
-						//Generate new asteroids
-
+					if (oi2.pObject->type == TYPE_SHIP) {
+						if (CollisionIntersection_RectRect(oi1->boundingBox, oi1->velCurr, oi2.boundingBox, oi2.velCurr)) {
+							AEVec2Set(&oi2.posCurr, 0.f, 0.f);
+							AEVec2Set(&oi2.velCurr, 0.f, 0.f);
+							gameObjInstDestroy(oi1);
+							//Decrement Ship Lives
+							sScore += 100;
+							sShipLives--;
+							spawnAsteroids = true;
+						}
+					}
+					if (oi2.pObject->type == TYPE_BULLET) {
+						if (CollisionIntersection_RectRect(oi1->boundingBox, oi1->posCurr, oi2.boundingBox, oi2.posCurr)) {
+							gameObjInstDestroy(oi1);
+							gameObjInstDestroy(&oi2);
+							//Generate new asteroids
+							sScore += 100;
+							spawnAsteroids = true;
+						}
 					}
 				}
 			}
+
 		}
-		
+		if (spawnAsteroids) {
+			for (int i = 0; i < 2; ++i) {
+				GenerateAsteroid();
+			}
+			onValueChange = true;
+			spawnAsteroids = false;
+		}
 	}
 
 
@@ -433,20 +494,20 @@ void GameStateAsteroidsUpdate(void)
 		}
 
 
-		// Remove bullets that go out of bounds
+		// Remove bullets that go out of circular bounds
 		if (pInst->pObject->type == TYPE_BULLET) {
+			/* Circular implementation of boundary
+			*/
 			int ww = AEGetWindowWidth(), wh = AEGetWindowHeight();
 			float wwos = ww / 2.f, whos = wh / 2.f, boundary = wwos * wwos + whos * whos;
-			AEVec2 v0, cpos;
-			AEVec2Set(&v0, cosf(pInst->dirCurr), sinf(pInst->dirCurr));
-			AEVec2Scale(&v0, &v0, BULLET_SPEED * dt * 2);
-			AEVec2Add(&pInst->posCurr, &pInst->posCurr, &v0);
+			AEVec2 cpos;
 			
 			cpos = pInst->posCurr;
 			//Checking boundary using radius (from sqrt(width/2 ^2 + height/2 ^2)
 			if (cpos.x * cpos.x + cpos.y * cpos.y >= boundary) {
 				gameObjInstDestroy(pInst);
 			}
+
 			
 		}
 	}
@@ -485,7 +546,7 @@ void GameStateAsteroidsUpdate(void)
 
 /******************************************************************************/
 /*!
-	
+	"Draw" function of this state
 */
 /******************************************************************************/
 void GameStateAsteroidsDraw(void)
@@ -512,7 +573,6 @@ void GameStateAsteroidsDraw(void)
 
 	//You can replace this condition/variable by your own data.
 	//The idea is to display any of these variables/strings whenever a change in their value happens
-	static bool onValueChange = true;
 	if(onValueChange)
 	{
 		sprintf_s(strBuffer, "Score: %d", sScore);
@@ -529,6 +589,9 @@ void GameStateAsteroidsDraw(void)
 			//AEGfxPrint(280, 260, 0xFFFFFFFF, "       GAME OVER       ");
 			printf("       GAME OVER       \n");
 		}
+		else if (sScore >= 5000) {
+			printf("YOU ROCK\n");
+		}
 
 		onValueChange = false;
 	}
@@ -536,7 +599,7 @@ void GameStateAsteroidsDraw(void)
 
 /******************************************************************************/
 /*!
-	
+	"Free" function of this state	
 */
 /******************************************************************************/
 void GameStateAsteroidsFree(void)
@@ -549,7 +612,7 @@ void GameStateAsteroidsFree(void)
 
 /******************************************************************************/
 /*!
-	
+	"Unload" function of this state	
 */
 /******************************************************************************/
 void GameStateAsteroidsUnload(void)
@@ -564,7 +627,13 @@ void GameStateAsteroidsUnload(void)
 
 /******************************************************************************/
 /*!
-	
+	\brief		Creates a game object instance if available slot found in main game object list
+	\param[in]	type	-> type of game object
+	\param[in]	scale	-> size of game object
+	\param[in]	pPos	-> starting position of game object
+	\param[in]	pVel	-> starting velocity of game object
+	\param[in]	dir		-> direction game object is facing towards
+	\returns	a pointer to instance of an object in a slot on the main object instance list
 */
 /******************************************************************************/
 GameObjInst * gameObjInstCreate(unsigned long type, 
@@ -605,7 +674,8 @@ GameObjInst * gameObjInstCreate(unsigned long type,
 
 /******************************************************************************/
 /*!
-	
+	\brief		Set a game object to be free for overrided with new values
+	\param[in]	pInst	-> pointer to object instance to be flagged as available to override
 */
 /******************************************************************************/
 void gameObjInstDestroy(GameObjInst * pInst)
@@ -619,9 +689,35 @@ void gameObjInstDestroy(GameObjInst * pInst)
 }
 
 
-void Accelerate(GameObjInst &ship, f32 dt) {
-}
+/******************************************************************************/
+/*!
+	\brief		Function to generate a asteroid of random size at random location
+*/
+/******************************************************************************/
+void GenerateAsteroid() {
 
-void Decelerate() {
+	AEVec2 posCurr{ 0 }, velCurr{ 0 }, relCurr{ 0 };
+	f32 angle{ 0 }, scale{ 0 }, spawnbuffer = 10.f;
+	/*Creation of Asteroid Requires
+	Direction: Radians (Random)
+	Velocity: Random
+	Position: Random
+	*/
+	
+	//Generating size for game object
+	scale = 20.f + (rand() % 4) * 10, spawnbuffer += (scale / 2.f);
+	angle = AERandFloat() * 2 * PI;
+	int dir = rand() % 2 == 0 ? -1 : 1;
+	AEVec2Set(&velCurr, cosf(angle) * dir, sinf(angle) * dir);
+	//Generate Random Position
+	//Position will be re-generated if it is too close to player
+	do {
+		dir = rand() % 2 == 0 ? -1 : 1;
+		posCurr.x = AERandFloat() * AEGfxGetWinMaxX() * dir;
+		posCurr.y = AERandFloat() * AEGfxGetWinMaxY() * dir;
+		AEVec2Sub(&relCurr, &spShip->posCurr, &posCurr);
+	} while (AEVec2Length(&relCurr) <= spawnbuffer);
 
+	//calling to set a game object on the main list
+	gameObjInstCreate(TYPE_ASTEROID, scale, &posCurr, &velCurr, angle);
 }

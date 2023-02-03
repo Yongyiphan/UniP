@@ -1,12 +1,13 @@
 /******************************************************************************/
 /*!
 \file		Collision.h
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	January 01, 20xx
-\brief		ToDo: give a brief explanation here
+\author 	Yong Yip Han, Edgar
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	February 02, 2023
+\brief		This File contains the declarations for functions to
+			Check for Collision between 2 rectangular object
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
