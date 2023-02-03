@@ -35,7 +35,9 @@ bool CollisionIntersection_RectRect(const AABB & aabb1, const AEVec2 & vel1,
 				If the check returns no overlap you continue with the following next steps (dynamics).
 				Otherwise you return collision true
 	*/
+	/*AEvec2, vel1, vel2 = positions*/
 	
+
 	/*Step 2: Initialize and calculate the new velocity of Vb
 			tFirst = 0
 			tLast = dt
