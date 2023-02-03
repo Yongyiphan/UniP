@@ -34,25 +34,22 @@ bool CollisionIntersection_RectRect(const AABB & aabb1, const AEVec2 & vel1,
 	Step 1: Check for static collision detection between rectangles (before moving). 
 				If the check returns no overlap you continue with the following next steps (dynamics).
 				Otherwise you return collision true
-
-	Step 2: Initialize and calculate the new velocity of Vb
+	*/
+	
+	/*Step 2: Initialize and calculate the new velocity of Vb
 			tFirst = 0
 			tLast = dt
-
-	Step 3: Working with one dimension (x-axis).
+	*/
+	/*Step 3: Working with one dimension (x-axis).
 			if(Vb < 0)
 				case 1
 				case 4
 			if(Vb > 0)
 				case 2
 				case 3
-
 			case 5
-
-	Step 4: Repeat step 3 on the y-axis
-
-	Step 5: Otherwise the rectangles intersect
-
 	*/
+	/*Step 4: Repeat step 3 on the y-axis*/
+	/*Step 5: Otherwise the rectangles intersect*/
 	return 0;
 }
