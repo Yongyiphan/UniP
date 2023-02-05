@@ -361,7 +361,7 @@ void GameStateAsteroidsUpdate(void)
 	//	-- Positions of the instances are updated here with the already computed velocity (above)
 	// ======================================================
 	
-	for (GameObjInst& o : sGameObjInstList) {
+	for (GameObjInst& o : sGameObjInstList){
 		if ((o.flag & FLAG_ACTIVE) == 0) continue;
 		//Get AABB
 		AEVec2 boundingOffset{ BOUNDING_RECT_SIZE / 2.f, BOUNDING_RECT_SIZE / 2.f };
@@ -499,12 +499,11 @@ void GameStateAsteroidsUpdate(void)
 			/* Circular implementation of boundary
 			*/
 			int ww = AEGetWindowWidth(), wh = AEGetWindowHeight();
+			//window offset in x and y axis, boundary = offsetx^2 + offsety^2
 			float wwos = ww / 2.f, whos = wh / 2.f, boundary = wwos * wwos + whos * whos;
-			AEVec2 cpos;
 			
-			cpos = pInst->posCurr;
 			//Checking boundary using radius (from sqrt(width/2 ^2 + height/2 ^2)
-			if (cpos.x * cpos.x + cpos.y * cpos.y >= boundary) {
+			if (pInst->posCurr.x * pInst->posCurr.x + pInst->posCurr.y * pInst->posCurr.y >= boundary) {
 				gameObjInstDestroy(pInst);
 			}
 
@@ -712,8 +711,10 @@ void GenerateAsteroid() {
 	//Generate Random Position
 	//Position will be re-generated if it is too close to player
 	do {
+		//Combination of generating in 4 quadrants of the screen
 		dir = rand() % 2 == 0 ? -1 : 1;
 		posCurr.x = AERandFloat() * AEGfxGetWinMaxX() * dir;
+		dir = rand() % 2 == 0 ? -1 : 1;
 		posCurr.y = AERandFloat() * AEGfxGetWinMaxY() * dir;
 		AEVec2Sub(&relCurr, &spShip->posCurr, &posCurr);
 	} while (AEVec2Length(&relCurr) <= spawnbuffer);
