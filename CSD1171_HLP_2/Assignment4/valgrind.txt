@@ -1,0 +1,39 @@
+The empty board
+Delete triggered
+Delete triggered
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+   0   0   0   0   0   0   0   0
+
+Boat placement is accepted.
+Boat placement is accepted.
+Boat placement is accepted.
+Boat placement is rejected.
+Boat placement is rejected.
+Boat placement is rejected.
+The board with 3 boats
+Delete triggered
+Delete triggered
+   0   0   0   0   0   0   0   0
+
+   0   0   0   0   0   2   0   0
+
+   0   0   0   0   0   2   0   0
+
+   0   1   1   1   1   2   0   0
+
+   0   0   0   0   0   2   0   0
+
+   3   3   3   3   0   0   0   0
+
+   0   0   0   0   0   0   0   0
+
+   0   0   0   0   0   0   0   0
+
+
+Delete triggered
