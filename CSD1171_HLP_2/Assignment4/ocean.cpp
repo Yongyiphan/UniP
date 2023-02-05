@@ -1,4 +1,20 @@
+/*!*****************************************
+ \file      ocean.h
+ \author    Edgar Yong
+ \par       DP email: y.yiphanedgar\@digipen.edu
+ \par       Course: CSD 1171
+ \par       Programming Assignment 2
+ \date      05-02-2023
+ \brief     File-header Documentation for ocean.h
+ \brief     This file contains class with member functions to
+            Create an Ocean Object and fill it with default values
+            Destroy created ocean object
+            Place Boat onto the ocean's grid
+            Shoot onto the grid and check for damages done to boat and update fields accordingly
 
+            GetShot = to get the stats of the boats' status
+            DumpOcean print out the grid onto a text file
+*/
 #include "ocean.h"
 #include <iostream>
 

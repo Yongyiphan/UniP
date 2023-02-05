@@ -6,7 +6,7 @@
  \par       Programming Assignment 2
  \date      05-02-2023
  \brief     File-header Documentation for ocean.h
- \brief     This file contains function to
+ \brief     This file contains class with member functions to
             Create an Ocean Object and fill it with default values
             Destroy created ocean object
             Place Boat onto the ocean's grid
