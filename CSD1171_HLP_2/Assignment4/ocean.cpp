@@ -1,11 +1,11 @@
 /*!*****************************************
- \file      ocean.h
+ \file      ocean.cpp
  \author    Edgar Yong
  \par       DP email: y.yiphanedgar\@digipen.edu
  \par       Course: CSD 1171
- \par       Programming Assignment 2
+ \par       Programming Assignment 4
  \date      05-02-2023
- \brief     File-header Documentation for ocean.h
+ \brief     File-header Documentation for ocean.cpp
  \brief     This file contains class with member functions to
             Create an Ocean Object and fill it with default values
             Destroy created ocean object
@@ -23,6 +23,12 @@ namespace HLP2{
     namespace WarBoats{
         Ocean::Ocean(){}
         
+        /*
+        \brief      Constructor to create an ocean object and fill it with values
+        \param[in]  num_boat to generate array to contain given number of boats
+        \param[in]  hor_size number of columns in the grid
+        \param[in]  ver_size number of rows in the grid
+        */
         Ocean::Ocean(int num_boat, int hor_size, int ver_size){
             grid = new int[hor_size * ver_size];
             for(int i = 0; i < hor_size * ver_size; i++){
@@ -39,6 +45,9 @@ namespace HLP2{
             this->stats =  new ShotStats{0,0,0,0};
         }
 
+        /*
+        \brief      Destructor call for deleteing ocean object
+        */
         Ocean::~Ocean(){
             //std::cout << "Delete triggered" << std::endl;
             delete[] this->boats;
@@ -46,6 +55,11 @@ namespace HLP2{
             delete stats;
         }
 
+        /*
+        \brief      Place a boat onto the ocean grid
+        \param[in]  boat  -> const reference to the boat object
+        \return     status stating whether the boat's place is allowed
+        */
         BoatPlacement Ocean::PlaceBoat(const Boat&boat) const{
         
             //Edge Cases: Boat out of position:
@@ -89,6 +103,11 @@ namespace HLP2{
             return bpACCEPTED;
         }
 
+        /*
+        \brief      simulate shooting at the grid of boats
+        \param[in]  coordinate -> reference to a point struct containing x, and y positions
+        \return     a status representing is a boat is hit, sunk or the shot missed a boat
+        */
         ShotResult Ocean::TakeShot(const Point&coordinate) const{
         
             if((coordinate.x < 0  || coordinate.x > x) || 
@@ -132,17 +151,26 @@ namespace HLP2{
             return srHIT;
         }
     
-
+        /*
+        \brief      Retrieve the stats of boats on the grid
+        \return     a shotstat struct that contains values recorded in the ocean object
+        */
         const ShotStats& Ocean::GetShotStats() const{
             return *stats;
         }
-
-        const Ocean& Ocean::GetDimensions() const{
-            return *this;
-        }
-
+        /*
+        \brief    Get ocean's grid
+        \return   pointer to current grid
+        */
         const int * Ocean::GetGrid() const{
             return grid;
+        }
+        /*
+        \brief    Return current ocean object
+        \return   reference to current object
+        */
+        const Ocean& Ocean::GetDimensions() const{
+            return *this;
         }
     }
 }

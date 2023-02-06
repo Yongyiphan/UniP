@@ -3,7 +3,7 @@
  \author    Edgar Yong
  \par       DP email: y.yiphanedgar\@digipen.edu
  \par       Course: CSD 1171
- \par       Programming Assignment 2
+ \par       Programming Assignment 4
  \date      05-02-2023
  \brief     File-header Documentation for ocean.h
  \brief     This file contains class with member functions to
@@ -77,14 +77,15 @@ namespace HLP2 {
         \param[in]  num_boat to generate array to contain given number of boats
         \param[in]  hor_size number of columns in the grid
         \param[in]  ver_size number of rows in the grid
-        \return     A filled ocean object
         */
         Ocean(int num_boat, int hor_size, int ver_size);
+        /*
+        \brief      Destructor call for deleteing ocean object
+        */
         ~Ocean();
 
         /*
         \brief      Place a boat onto the ocean grid
-        \param[in]  ocean -> reference to the ocean object
         \param[in]  boat  -> const reference to the boat object
         \return     status stating whether the boat's place is allowed
         */
