@@ -39,12 +39,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Color parameters represent colours as ARGB
 	// UV coordinates to read from loaded textures
 	AEGfxTriAdd(
+     30.f, -30.f, 0x00FFFFFF, 1.f, 1.0f,
 	-30.f, -30.f, 0x00FFFFFF, 0.0f, 1.0f,
-     30.f, -30.f, 0x00FFFFFF, 0.75f, 1.0f,
 	-30.f,  30.f, 0x00FFFFFF, 0.0f, 0.0f);
 	AEGfxTriAdd(
-	 30.f, -30.f, 0x00FFFFFF, 0.75f, 1.0f,
-	 30.f,  30.f, 0x00FFFFFF, 0.75f, 0.0f,
+	 30.f, -30.f, 0x00FFFFFF, 1.f, 1.0f,
+	 30.f,  30.f, 0x00FFFFFF, 1.f, 0.0f,
 	-30.f,  30.f, 0x00FFFFFF, 0.0f, 0.0f);
 	// Saving the mesh (list of triangles) in pMesh
 	pMesh = AEGfxMeshEnd();
@@ -102,7 +102,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		AEGfxSetTransform(transform.m);
 		// Actually drawing the mesh 
 		AEGfxMeshDraw(pMesh, AE_GFX_MDM_TRIANGLES);
-
 
 		// Informing the system about the loop's end
 		AESysFrameEnd();
