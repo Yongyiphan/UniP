@@ -48,8 +48,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	-30.f,  30.f, 0x00FFFFFF, 0.0f, 0.0f);
 	// Saving the mesh (list of triangles) in pMesh
 	pMesh = AEGfxMeshEnd();
-	AEGfxTexture* pTex = AEGfxTextureLoad("./Assets/PlanetTexture.png");
-
+	//AEGfxTexture* pTex = AEGfxTextureLoad("./Assets/PlanetTexture.png");
+	AEGfxTexture* pTex = AEGfxTextureLoad("./Assets/SushiRiceBall.png");
+	
 	int rad = 0;
 
 	// Game Loop
@@ -71,7 +72,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 		// Your own rendering logic goes here
 		// Set the background to black.
-		AEGfxSetBackgroundColor(0.0f, 0.0f, 0.0f);
+		AEGfxSetBackgroundColor(1.0f, 1.0f, 1.0f);
 		// Tell the engine to get ready to draw something with texture.
 		AEGfxSetRenderMode(AE_GFX_RM_TEXTURE);
 		// Set the tint to white, so that the sprite can 
