@@ -1,0 +1,18 @@
+
+********** TestPush **********
+Empty array:
+(size=0, capacity=0, allocs=0)
+add 5 integers:
+99 98 97 96 95 (size=5, capacity=5, allocs=1)
+push_back 5 integers:
+99 98 97 96 95 0 (size=6, capacity=10, allocs=2)
+99 98 97 96 95 0 1 (size=7, capacity=10, allocs=2)
+99 98 97 96 95 0 1 2 (size=8, capacity=10, allocs=2)
+99 98 97 96 95 0 1 2 3 (size=9, capacity=10, allocs=2)
+99 98 97 96 95 0 1 2 3 4 (size=10, capacity=10, allocs=2)
+push_back 5 more integers:
+99 98 97 96 95 0 1 2 3 4 0 (size=11, capacity=20, allocs=3)
+99 98 97 96 95 0 1 2 3 4 0 -1 (size=12, capacity=20, allocs=3)
+99 98 97 96 95 0 1 2 3 4 0 -1 -2 (size=13, capacity=20, allocs=3)
+99 98 97 96 95 0 1 2 3 4 0 -1 -2 -3 (size=14, capacity=20, allocs=3)
+99 98 97 96 95 0 1 2 3 4 0 -1 -2 -3 -4 (size=15, capacity=20, allocs=3)
