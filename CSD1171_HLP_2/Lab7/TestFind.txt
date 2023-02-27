@@ -1,0 +1,20 @@
+***** Find1 *****
+-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1
+Item 9 is at index 4
+***** Find2 *****
+-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1
+Changing 9 to 100
+-1, 2, 6, -1, 100, 5, 7, -1, -1, 8, -1
+***** Find3 *****
+-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1
+Item 19 was not found
+***** Find4 *****
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+Item n is at index 4
+Changing n to Z
+l, e, a, r, Z, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+***** Find5 *****
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+Item m is at index 18
+Changing m to Montreal
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, Montreal, p, l, a, t, e, s

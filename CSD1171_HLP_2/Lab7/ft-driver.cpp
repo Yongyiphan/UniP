@@ -21,114 +21,62 @@ namespace {
 	void TestSum();
 } // end anonymous namspace
 
-int main() {
-  TestSwap();
-  TestSwapRanges();
-  TestRemove();
-  TestCount();
-  TestFind();
-  TestCopy();
-  TestFill();
-  TestReplace();
-  TestMin();
-  TestMax();
-  TestEqual();
-  TestSum();
+int main(int argc, char *argv[]) {
+  if (argc < 2) {
+    std::cout << "Usage: ft.exe input-text-file" << std::endl;
+    return 0;
+  }
+  int test_num{};
+  if (argc > 1) {
+    test_num = std::atoi(argv[1]);
+  }
+  using TPF = void (*)();
+  int const num_of_tests {13};
+  std::array<TPF, num_of_tests> Tests = {
+	TestCopy,        //1
+	TestCount,       //2
+	TestEqual,       //3
+	TestFill,        //4
+	TestFind,        //5
+	TestMax,         //6
+	TestMin,         //7
+	TestRemove,      //8
+	TestReplace,     //9
+	TestSum,         //10
+	TestSwap,        //11
+	TestSwapRanges   //12
+  };
+  if (test_num == 0) {
+    for (int i = 0; i < num_of_tests; i++) {
+      Tests[i]();
+    }
+  } else if (test_num > 0 && test_num <= num_of_tests) {
+    Tests[test_num - 1]();
+  }
 }
 
 namespace {
-void TestSwap() {
-  std::cout << "***** TestSwap1 *****" << "\n";
-  int a = 5, b = 8;
-  std::cout << "a = " << a << ", b = " << b << "\n";
-  hlp2::swap(a, b);
-  std::cout << "a = " << a << ", b = " << b << "\n";
 
-  std::cout << "***** TestSwap2 *****" << "\n";
-  Student s1 = {"jdoe", 20, 3, 3.82}; std::cout << "s1: " << s1;
-  Student s2 = {"fbar", 22, 1, 1.28}; std::cout << "s2: " << s2;
-  hlp2::swap(s1, s2);
-  std::cout << "s1: " << s1; std::cout << "s2: " << s2;
-}
+void TestCopy() {
+  std::cout << "***** Copy1 *****" << "\n";
+  const std::array<short, 11> ash {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
+  std::array<short,20> ash2 {0};
+  hlp2::display(ash.data(), ash.data()+ash.size());
+  hlp2::display(ash2.data(), hlp2::copy(ash.data(), ash.data()+ash.size(), ash2.data()));
 
-void TestSwapRanges() {
-  std::cout << "***** SwapRanges *****" << "\n";
-  std::array<int, 11> i1 {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  std::array<int, 11> i2 {3, 6, 8, 0, -1, 5, -3, -9, 3, 5, 8};
-  hlp2::display(i1.data(), i1.data()+i1.size());
-  hlp2::display(i2.data(), i2.data()+i2.size());
-  hlp2::swap_ranges(i1.data(), i1.data()+i1.size(), i2.data());
-  hlp2::display(i1.data(), i1.data()+i1.size());
-  hlp2::display(i2.data(), i2.data()+i2.size());
-
-  std::array<std::string, 6>  as1 {"a", "b", "c", "d", "e", "f"};
-  std::array<std::string, 10> as2 {"g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
-  hlp2::display(as1.data(), as1.data()+as1.size());
-  hlp2::display(as2.data(), as2.data()+as2.size());
-  hlp2::swap_ranges(as1.data(), as1.data()+3, as2.data());
-  hlp2::swap_ranges(as1.data()+3, as1.data()+as1.size(), as2.data()+3);
-  hlp2::display(as1.data(), as1.data()+as1.size());
-  hlp2::display(as2.data(), as2.data()+as2.size());
-
-  std::array<Student, 5> astu1 {
-                   Student{"jdoe", 20, 3, 3.82},
-                   Student{"fbar", 22, 1, 1.28},
-                   Student{"wxyz", 19, 3, 1.59},
-                   Student{"abcd", 20, 1, 1.99},
-                   Student{"jbar", 22, 2, 3.38}
-                 };
-  std::array<Student, 5> astu2 {
-                   Student{"eodj", 21, 3, 2.38},
-                   Student{"rabf", 20, 2, 2.81},
-                   Student{"zyxw", 19, 2, 2.95},
-                   Student{"dcba", 17, 1, 2.91},
-                   Student{"rabj", 22, 3, 2.5}
-                 };
-  print(astu1.data(), astu1.data()+astu1.size()); std::cout << "\n";
-  print(astu2.data(), astu2.data()+astu2.size()); std::cout << "\n\n";
-  hlp2::swap_ranges(astu1.data(), astu1.data()+3, astu2.data());
-  hlp2::swap_ranges(astu1.data()+3, astu1.data()+astu1.size(), astu2.data()+3);
-  print(astu1.data(), astu1.data()+astu1.size()); std::cout << "\n";
-  print(astu2.data(), astu2.data()+astu2.size()); std::cout << "\n\n";
-}
-
-void TestRemove() {
-  std::cout << "***** Remove1 *****" << "\n";
-  std::array<int, 7> i1 {5, -7, 4, 10, -21, 15, 9};
-  hlp2::display(i1.data(), i1.data()+i1.size());
-  int *newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -1);
-  std::cout << "remove " << -1 << ", new list: ";
-  hlp2::display(i1.data(), newend);
-
-  std::cout << "***** Remove2 *****" << "\n";
-  i1 = {5, -7, 4, 10, -7, 15, 9};
-  hlp2::display(i1.data(), i1.data()+i1.size());
-  newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -7);
-  std::cout << "remove " << -7 << ", new list: ";
-  hlp2::display(i1.data(), newend);
-
-  std::cout << "***** Remove3 *****" << "\n";
-  i1 = {-1, -1, -1, -1, -1, -1, -1};
-  hlp2::display(i1.data(), i1.data()+i1.size());
-  newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -1);
-  std::cout << "remove " << -1 << ", new list: ";
-  hlp2::display(i1.data(), newend);
-
-  std::cout << "***** Remove4 *****" << "\n";
-  std::array<char, 25> as1 {'l','e','a','r','n','i','n','g','a','b','o','u','t','c','+','+','t','e','m','p','l','a','t','e','s'};
-  hlp2::display(as1.data(), as1.data()+as1.size());
-  char *ch_newend = hlp2::remove(as1.data(), as1.data()+as1.size(), '+');
-  hlp2::display(as1.data(), ch_newend);
-  ch_newend = hlp2::remove(as1.data(), ch_newend, 'e');
-  hlp2::display(as1.data(), ch_newend);
-  ch_newend = hlp2::remove(as1.data(), ch_newend, 't');
-  hlp2::display(as1.data(), ch_newend);
-  ch_newend = hlp2::remove(as1.data(), ch_newend, 'a');
-  hlp2::display(as1.data(), ch_newend);
-  ch_newend = hlp2::remove(as1.data(), ch_newend, 's');
-  hlp2::display(as1.data(), ch_newend);
-  ch_newend = hlp2::remove(as1.data(), ch_newend, 'l');
-  hlp2::display(as1.data(), ch_newend);
+  std::cout << "***** Copy2 *****" << "\n";
+  std::array<char, 25> ac {'l','e','a','r','n','i','n','g','a','b','o','u',
+                       't','c','+','+','t','e','m','p','l','a','t','e','s'};
+  hlp2::display(ac.data(), ac.data()+ac.size());
+  std::array<char, 10> ac2 {'z','z','z','z','z','z','z','z','z','z'};
+  hlp2::display(ac2.data(), hlp2::copy(ac.data()+10, ac.data()+20, ac2.data()));
+  
+  std::cout << "***** Copy3 *****" << "\n";
+  std::array<std::string, 25> as {"l","e","a","r","n","i","n","g","a","b","o","u","t",
+                              "c","+","+","t","e","m","p","l","a","t","e","s"};
+  hlp2::display(as.data(), as.data()+as.size());
+  std::array<std::string, 25> as2{};
+  hlp2::display(as2.data(), hlp2::copy(as.data(), as.data(), as2.data()));
 }
 
 void TestCount() {
@@ -161,6 +109,51 @@ void TestCount() {
   std::cout << "Count of " << "l" << " is " << c << "\n";
   c = hlp2::count(as.data()+2, as.data()+as.size(), "e");
   std::cout << "Count of " << "e" << " is " << c << "\n";
+}
+
+
+void TestEqual() {
+  std::cout << "***** Equal1 *****" << "\n";
+  std::array<int, 11> ai {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
+  std::array<short, 11> ash {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
+  
+  hlp2::display(ai.data(), ai.data()+ai.size());
+  hlp2::display(ash.data(), ash.data()+ash.size());
+  bool same = hlp2::equal(ai.data(), ai.data()+ai.size(), ash.data());
+  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
+
+  std::cout << "***** Equal2 *****" << "\n";
+  std::array<int, 7> ai2 {-1, 2, 6, -1, 9, 5, 7};
+  std::array<short, 11> ash2 {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
+  hlp2::display(ai2.data(), ai2.data()+ai2.size());
+  hlp2::display(ash2.data(), ash2.data()+ash2.size());
+  same = hlp2::equal(ai2.data(), ai2.data()+ai2.size(), ash2.data());
+  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
+
+  std::cout << "***** Equal3 *****" << "\n";
+  std::array<int, 7> ai3 {-1, 2, 6, -1, 9, 5, 7};
+  std::array<short, 7> ash3 {-1, 2, 6, -1, 9, 6, 7};
+  hlp2::display(ai3.data(), ai3.data()+ai3.size());
+  hlp2::display(ash3.data(), ash3.data()+ash3.size());
+  same = hlp2::equal(ai3.data(), ai3.data()+ai3.size(), ash3.data());
+  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
+}
+
+void TestFill() {
+  std::cout << "***** Fill1 *****" << "\n";
+  std::array<int, 10> ai{0};
+  hlp2::fill(ai.data(), ai.data()+ai.size(), 12);
+  hlp2::display(ai.data(), ai.data()+ai.size());
+
+  std::cout << "***** Fill2 *****" << "\n";
+  std::array<char, 30> ac{};
+  hlp2::fill(ac.data(), ac.data()+ac.size(), '*');
+  hlp2::display(ac.data(), ac.data()+ac.size());
+
+  std::cout << "***** Fill3 *****" << "\n";
+  std::array<std::string, 30> as{};
+  hlp2::fill(as.data(), as.data()+as.size(), "*");
+  hlp2::display(as.data(), as.data()+as.size());
 }
 
 void TestFind() {
@@ -228,69 +221,44 @@ void TestFind() {
   hlp2::display(as.data(), as.data()+as.size());
 }
 
-void TestCopy() {
-  std::cout << "***** Copy1 *****" << "\n";
-  const std::array<short, 11> ash {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  std::array<short,20> ash2 {0};
-  hlp2::display(ash.data(), ash.data()+ash.size());
-  hlp2::display(ash2.data(), hlp2::copy(ash.data(), ash.data()+ash.size(), ash2.data()));
+void TestMax() {
+  std::cout << "***** Max1 *****" << "\n";
+  std::array<int, 11> ai {-1, 2, 6, -31, 9, 5, 7, -21, -1, 8, -10};
+  hlp2::display(ai.data(), ai.data()+ai.size());
+  int const *pos = hlp2::max_element(ai.data(), ai.data()+ai.size());
+  std::cout << "The max element is: " << *pos << "\n";
 
-  std::cout << "***** Copy2 *****" << "\n";
+  std::cout << "***** Max2 *****" << "\n";
+  std::array<double, 11> ad {-1.1, 2.2, 6.3, -31.4, 9.5, 5.6, 7.7, -21.8, -1.9, 8.1, -10.2};
+  hlp2::display(ad.data(), ad.data()+ad.size());
+  double const *dpos = hlp2::max_element(ad.data(), ad.data()+ad.size());
+  std::cout << "The max element is: " << *dpos << "\n";
+
+  std::cout << "***** Max3 *****" << "\n";
   std::array<char, 25> ac {'l','e','a','r','n','i','n','g','a','b','o','u',
                        't','c','+','+','t','e','m','p','l','a','t','e','s'};
   hlp2::display(ac.data(), ac.data()+ac.size());
-  std::array<char, 10> ac2 {'z','z','z','z','z','z','z','z','z','z'};
-  hlp2::display(ac2.data(), hlp2::copy(ac.data()+10, ac.data()+20, ac2.data()));
+  char const *cpos = hlp2::max_element(ac.data(), ac.data()+ac.size());
+  std::cout << "The max element is: " << *cpos << "\n";
   
-  std::cout << "***** Copy3 *****" << "\n";
+  std::cout << "***** Max4 *****" << "\n";
   std::array<std::string, 25> as {"l","e","a","r","n","i","n","g","a","b","o","u","t",
                               "c","+","+","t","e","m","p","l","a","t","e","s"};
   hlp2::display(as.data(), as.data()+as.size());
-  std::array<std::string, 25> as2{};
-  hlp2::display(as2.data(), hlp2::copy(as.data(), as.data(), as2.data()));
-}
+  std::string const *spos = hlp2::max_element(as.data(), as.data()+as.size());
+  std::cout << "The max element is: " << *spos << "\n";
 
-void TestFill() {
-  std::cout << "***** Fill1 *****" << "\n";
-  std::array<int, 10> ai{0};
-  hlp2::fill(ai.data(), ai.data()+ai.size(), 12);
-  hlp2::display(ai.data(), ai.data()+ai.size());
-
-  std::cout << "***** Fill2 *****" << "\n";
-  std::array<char, 30> ac{};
-  hlp2::fill(ac.data(), ac.data()+ac.size(), '*');
-  hlp2::display(ac.data(), ac.data()+ac.size());
-
-  std::cout << "***** Fill3 *****" << "\n";
-  std::array<std::string, 30> as{};
-  hlp2::fill(as.data(), as.data()+as.size(), "*");
-  hlp2::display(as.data(), as.data()+as.size());
-}
-
-void TestReplace() {
-  std::cout << "***** Replace1 *****" << "\n";
-  std::array<int, 11> ai {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  hlp2::display(ai.data(), ai.data()+ai.size());
-  int olditem {-1}, newitem {-8};
-  std::cout << "Replacing " << olditem << " with " << newitem << "\n";
-  hlp2::replace(ai.data(), ai.data()+ai.size(), olditem, newitem);
-  hlp2::display(ai.data(), ai.data()+ai.size());
-
-  std::cout << "***** Replace2 *****" << "\n";
-  std::array<char, 25> ac {'l','e','a','r','n','i','n','g','a','b','o','u',
-                       't','c','+','+','t','e','m','p','l','a','t','e','s'};
-  hlp2::display(ac.data(), ac.data()+ac.size());
-  std::cout << "Replacing " << 'p' << " with " << 'P' << "\n";
-  hlp2::replace(ac.data(), ac.data()+ac.size(), 'p', 'P');
-  hlp2::display(ac.data(), ac.data()+ac.size());
-  
-  std::cout << "***** Replace3 *****" << "\n";
-  std::array<std::string, 25> as {"l","e","a","r","n","i","n","g","a","b","o","u","t",
-                              "c","+","+","t","e","m","p","l","a","t","e","s"};
-  hlp2::display(as.data(), as.data()+as.size());
-  std::cout << "Replacing " << "p" << " with " << "P" << "\n";
-  hlp2::replace(as.data(), as.data()+as.size(), "p", "P");
-  hlp2::display(as.data(), as.data()+as.size());
+  std::cout << "***** Max5 *****" << "\n";
+  std::array<Student, 5> ast {
+                   Student{"jdoe", 20, 3, 3.82},
+                   Student{"fbar", 22, 1, 1.28},
+                   Student{"wxyz", 19, 3, 1.59},
+                   Student{"abcd", 20, 1, 1.99},
+                   Student{"jbar", 22, 2, 3.38}
+                 };
+  print(ast.data(), ast.data()+ast.size());
+  Student *stpos = hlp2::max_element(ast.data(), ast.data()+ast.size());
+  std::cout << "The max element is: " << *stpos;
 }
 
 void TestMin() {
@@ -334,71 +302,71 @@ void TestMin() {
   std::cout << "The min element is: " << *stpos;
 }
 
-void TestMax() {
-  std::cout << "***** Max1 *****" << "\n";
-  std::array<int, 11> ai {-1, 2, 6, -31, 9, 5, 7, -21, -1, 8, -10};
+
+void TestRemove() {
+  std::cout << "***** Remove1 *****" << "\n";
+  std::array<int, 7> i1 {5, -7, 4, 10, -21, 15, 9};
+  hlp2::display(i1.data(), i1.data()+i1.size());
+  int *newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -1);
+  std::cout << "remove " << -1 << ", new list: ";
+  hlp2::display(i1.data(), newend);
+
+  std::cout << "***** Remove2 *****" << "\n";
+  i1 = {5, -7, 4, 10, -7, 15, 9};
+  hlp2::display(i1.data(), i1.data()+i1.size());
+  newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -7);
+  std::cout << "remove " << -7 << ", new list: ";
+  hlp2::display(i1.data(), newend);
+
+  std::cout << "***** Remove3 *****" << "\n";
+  i1 = {-1, -1, -1, -1, -1, -1, -1};
+  hlp2::display(i1.data(), i1.data()+i1.size());
+  newend = hlp2::remove(i1.data(), i1.data()+i1.size(),  -1);
+  std::cout << "remove " << -1 << ", new list: ";
+  hlp2::display(i1.data(), newend);
+
+  std::cout << "***** Remove4 *****" << "\n";
+  std::array<char, 25> as1 {'l','e','a','r','n','i','n','g','a','b','o','u','t','c','+','+','t','e','m','p','l','a','t','e','s'};
+  hlp2::display(as1.data(), as1.data()+as1.size());
+  char *ch_newend = hlp2::remove(as1.data(), as1.data()+as1.size(), '+');
+  hlp2::display(as1.data(), ch_newend);
+  ch_newend = hlp2::remove(as1.data(), ch_newend, 'e');
+  hlp2::display(as1.data(), ch_newend);
+  ch_newend = hlp2::remove(as1.data(), ch_newend, 't');
+  hlp2::display(as1.data(), ch_newend);
+  ch_newend = hlp2::remove(as1.data(), ch_newend, 'a');
+  hlp2::display(as1.data(), ch_newend);
+  ch_newend = hlp2::remove(as1.data(), ch_newend, 's');
+  hlp2::display(as1.data(), ch_newend);
+  ch_newend = hlp2::remove(as1.data(), ch_newend, 'l');
+  hlp2::display(as1.data(), ch_newend);
+}
+
+
+void TestReplace() {
+  std::cout << "***** Replace1 *****" << "\n";
+  std::array<int, 11> ai {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
   hlp2::display(ai.data(), ai.data()+ai.size());
-  int const *pos = hlp2::max_element(ai.data(), ai.data()+ai.size());
-  std::cout << "The max element is: " << *pos << "\n";
+  int olditem {-1}, newitem {-8};
+  std::cout << "Replacing " << olditem << " with " << newitem << "\n";
+  hlp2::replace(ai.data(), ai.data()+ai.size(), olditem, newitem);
+  hlp2::display(ai.data(), ai.data()+ai.size());
 
-  std::cout << "***** Max2 *****" << "\n";
-  std::array<double, 11> ad {-1.1, 2.2, 6.3, -31.4, 9.5, 5.6, 7.7, -21.8, -1.9, 8.1, -10.2};
-  hlp2::display(ad.data(), ad.data()+ad.size());
-  double const *dpos = hlp2::max_element(ad.data(), ad.data()+ad.size());
-  std::cout << "The max element is: " << *dpos << "\n";
-
-  std::cout << "***** Max3 *****" << "\n";
+  std::cout << "***** Replace2 *****" << "\n";
   std::array<char, 25> ac {'l','e','a','r','n','i','n','g','a','b','o','u',
                        't','c','+','+','t','e','m','p','l','a','t','e','s'};
   hlp2::display(ac.data(), ac.data()+ac.size());
-  char const *cpos = hlp2::max_element(ac.data(), ac.data()+ac.size());
-  std::cout << "The max element is: " << *cpos << "\n";
+  std::cout << "Replacing " << 'p' << " with " << 'P' << "\n";
+  hlp2::replace(ac.data(), ac.data()+ac.size(), 'p', 'P');
+  hlp2::display(ac.data(), ac.data()+ac.size());
   
-  std::cout << "***** Max4 *****" << "\n";
+  std::cout << "***** Replace3 *****" << "\n";
   std::array<std::string, 25> as {"l","e","a","r","n","i","n","g","a","b","o","u","t",
                               "c","+","+","t","e","m","p","l","a","t","e","s"};
   hlp2::display(as.data(), as.data()+as.size());
-  std::string const *spos = hlp2::max_element(as.data(), as.data()+as.size());
-  std::cout << "The max element is: " << *spos << "\n";
-
-  std::cout << "***** Max5 *****" << "\n";
-  std::array<Student, 5> ast {
-                   Student{"jdoe", 20, 3, 3.82},
-                   Student{"fbar", 22, 1, 1.28},
-                   Student{"wxyz", 19, 3, 1.59},
-                   Student{"abcd", 20, 1, 1.99},
-                   Student{"jbar", 22, 2, 3.38}
-                 };
-  print(ast.data(), ast.data()+ast.size());
-  Student *stpos = hlp2::max_element(ast.data(), ast.data()+ast.size());
-  std::cout << "The max element is: " << *stpos;
-}
-
-void TestEqual() {
-  std::cout << "***** Equal1 *****" << "\n";
-  std::array<int, 11> ai {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  std::array<short, 11> ash {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  
-  hlp2::display(ai.data(), ai.data()+ai.size());
-  hlp2::display(ash.data(), ash.data()+ash.size());
-  bool same = hlp2::equal(ai.data(), ai.data()+ai.size(), ash.data());
-  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
-
-  std::cout << "***** Equal2 *****" << "\n";
-  std::array<int, 7> ai2 {-1, 2, 6, -1, 9, 5, 7};
-  std::array<short, 11> ash2 {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
-  hlp2::display(ai2.data(), ai2.data()+ai2.size());
-  hlp2::display(ash2.data(), ash2.data()+ash2.size());
-  same = hlp2::equal(ai2.data(), ai2.data()+ai2.size(), ash2.data());
-  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
-
-  std::cout << "***** Equal3 *****" << "\n";
-  std::array<int, 7> ai3 {-1, 2, 6, -1, 9, 5, 7};
-  std::array<short, 7> ash3 {-1, 2, 6, -1, 9, 6, 7};
-  hlp2::display(ai3.data(), ai3.data()+ai3.size());
-  hlp2::display(ash3.data(), ash3.data()+ash3.size());
-  same = hlp2::equal(ai3.data(), ai3.data()+ai3.size(), ash3.data());
-  std::cout << "Arrays are " << (same ? "equal\n" : "not equal\n");
+  std::cout << "Replacing " << "p" << " with " << "P" << "\n";
+  hlp2::replace(as.data(), as.data()+as.size(), "p", "P");
+  hlp2::display(as.data(), as.data()+as.size());
 }
 
 void TestSum() {
@@ -433,6 +401,61 @@ void TestSum() {
 
   str_tot = hlp2::sum(as3.data()+24, as3.data()+as3.size());
   std::cout << "Concatenation in as3[24,25) is: " << str_tot << "\n";
+}
+
+void TestSwap() {
+  std::cout << "***** TestSwap1 *****" << "\n";
+  int a = 5, b = 8;
+  std::cout << "a = " << a << ", b = " << b << "\n";
+  hlp2::swap(a, b);
+  std::cout << "a = " << a << ", b = " << b << "\n";
+
+  std::cout << "***** TestSwap2 *****" << "\n";
+  Student s1 = {"jdoe", 20, 3, 3.82}; std::cout << "s1: " << s1;
+  Student s2 = {"fbar", 22, 1, 1.28}; std::cout << "s2: " << s2;
+  hlp2::swap(s1, s2);
+  std::cout << "s1: " << s1; std::cout << "s2: " << s2;
+}
+
+void TestSwapRanges() {
+  std::cout << "***** SwapRanges *****" << "\n";
+  std::array<int, 11> i1 {-1, 2, 6, -1, 9, 5, 7, -1, -1, 8, -1};
+  std::array<int, 11> i2 {3, 6, 8, 0, -1, 5, -3, -9, 3, 5, 8};
+  hlp2::display(i1.data(), i1.data()+i1.size());
+  hlp2::display(i2.data(), i2.data()+i2.size());
+  hlp2::swap_ranges(i1.data(), i1.data()+i1.size(), i2.data());
+  hlp2::display(i1.data(), i1.data()+i1.size());
+  hlp2::display(i2.data(), i2.data()+i2.size());
+
+  std::array<std::string, 6>  as1 {"a", "b", "c", "d", "e", "f"};
+  std::array<std::string, 10> as2 {"g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
+  hlp2::display(as1.data(), as1.data()+as1.size());
+  hlp2::display(as2.data(), as2.data()+as2.size());
+  hlp2::swap_ranges(as1.data(), as1.data()+3, as2.data());
+  hlp2::swap_ranges(as1.data()+3, as1.data()+as1.size(), as2.data()+3);
+  hlp2::display(as1.data(), as1.data()+as1.size());
+  hlp2::display(as2.data(), as2.data()+as2.size());
+
+  std::array<Student, 5> astu1 {
+                   Student{"jdoe", 20, 3, 3.82},
+                   Student{"fbar", 22, 1, 1.28},
+                   Student{"wxyz", 19, 3, 1.59},
+                   Student{"abcd", 20, 1, 1.99},
+                   Student{"jbar", 22, 2, 3.38}
+                 };
+  std::array<Student, 5> astu2 {
+                   Student{"eodj", 21, 3, 2.38},
+                   Student{"rabf", 20, 2, 2.81},
+                   Student{"zyxw", 19, 2, 2.95},
+                   Student{"dcba", 17, 1, 2.91},
+                   Student{"rabj", 22, 3, 2.5}
+                 };
+  print(astu1.data(), astu1.data()+astu1.size()); std::cout << "\n";
+  print(astu2.data(), astu2.data()+astu2.size()); std::cout << "\n\n";
+  hlp2::swap_ranges(astu1.data(), astu1.data()+3, astu2.data());
+  hlp2::swap_ranges(astu1.data()+3, astu1.data()+astu1.size(), astu2.data()+3);
+  print(astu1.data(), astu1.data()+astu1.size()); std::cout << "\n";
+  print(astu2.data(), astu2.data()+astu2.size()); std::cout << "\n\n";
 }
 
 } // end anonymous namespace
