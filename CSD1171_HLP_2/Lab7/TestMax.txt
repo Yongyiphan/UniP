@@ -1,0 +1,19 @@
+***** Max1 *****
+-1, 2, 6, -31, 9, 5, 7, -21, -1, 8, -10
+The max element is: 9
+***** Max2 *****
+-1.1, 2.2, 6.3, -31.4, 9.5, 5.6, 7.7, -21.8, -1.9, 8.1, -10.2
+The max element is: 9.5
+***** Max3 *****
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+The max element is: u
+***** Max4 *****
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+The max element is: u
+***** Max5 *****
+(login) jdoe, (age) 20, (year) 3, (GPA) 3.82
+(login) fbar, (age) 22, (year) 1, (GPA) 1.28
+(login) wxyz, (age) 19, (year) 3, (GPA) 1.59
+(login) abcd, (age) 20, (year) 1, (GPA) 1.99
+(login) jbar, (age) 22, (year) 2, (GPA) 3.38
+The max element is: (login) jdoe, (age) 20, (year) 3, (GPA) 3.82

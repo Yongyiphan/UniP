@@ -1,0 +1,17 @@
+***** Remove1 *****
+5, -7, 4, 10, -21, 15, 9
+remove -1, new list: 5, -7, 4, 10, -21, 15, 9
+***** Remove2 *****
+5, -7, 4, 10, -7, 15, 9
+remove -7, new list: 5, 4, 10, 15, 9
+***** Remove3 *****
+-1, -1, -1, -1, -1, -1, -1
+remove -1, new list: 
+***** Remove4 *****
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, +, +, t, e, m, p, l, a, t, e, s
+l, e, a, r, n, i, n, g, a, b, o, u, t, c, t, e, m, p, l, a, t, e, s
+l, a, r, n, i, n, g, a, b, o, u, t, c, t, m, p, l, a, t, s
+l, a, r, n, i, n, g, a, b, o, u, c, m, p, l, a, s
+l, r, n, i, n, g, b, o, u, c, m, p, l, s
+l, r, n, i, n, g, b, o, u, c, m, p, l
+r, n, i, n, g, b, o, u, c, m, p

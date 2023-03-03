@@ -1,0 +1,15 @@
+***** Sum1 *****
+3, 6, 8, 0, -1, 5, -3, -9, 3, 5, 8, -20, -5
+Sum in ai[0,1)  is: 3
+Sum in ai[0,2)  is: 9
+Sum in ai[5,7)  is: 2
+Sum in ai[0,13) is: 0
+3.3, 6.4, 8.5, 0.6, -1.7, 5.8, -3.9, -9, 3.1, 5.2, 8.3, -20.4, -5.5
+Sum in ad[0,1) is:  3.3
+Sum in ad[0,2) is:  9.7
+Sum in ad[5,7) is:  1.9
+Sum in ad[0,13) is: 0.7
+Concatenation in as1[0,1) is:   learningaboutc++templates
+Concatenation in as2[0,2) is:   learning about C++ templates
+Concatenation in as3[0,25) is:  abcdefghijklmnopqrstuwxyz
+Concatenation in as3[24,25) is: z
