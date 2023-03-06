@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*!
 \file		GameStateList.h
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	February 01, 20xx
-\brief
+\author 	Edgar Yong
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	March 6, 2023
+\brief		This file contains the declaration for enums used to represent the different game states
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */

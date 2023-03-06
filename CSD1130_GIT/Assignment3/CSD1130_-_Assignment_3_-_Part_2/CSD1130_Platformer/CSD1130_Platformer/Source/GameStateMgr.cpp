@@ -1,12 +1,18 @@
 /******************************************************************************/
 /*!
 \file		GameStateMgr.cpp
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	February 01, 20xx
-\brief
+\author 	Edgar Yong
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	March 6, 2023
+\brief		This file contains the definition of the Game State Manager
+			Function pointer for game loop functions for 
+				Load(), Unload()
+				Init(), Free()
+				Update()
+				Draw()
+			Functions to reassign which state's functions are to be executed
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
@@ -33,7 +39,7 @@ void (*GameStateUnload)()	= 0;
 
 /******************************************************************************/
 /*!
-
+	Initialize the Game State Manager
 */
 /******************************************************************************/
 void GameStateMgrInit(unsigned int gameStateInit)
@@ -52,7 +58,7 @@ void GameStateMgrInit(unsigned int gameStateInit)
 
 /******************************************************************************/
 /*!
-
+	Handles reassigning functions pointers from different states to be run. in the game loop
 */
 /******************************************************************************/
 void GameStateMgrUpdate()

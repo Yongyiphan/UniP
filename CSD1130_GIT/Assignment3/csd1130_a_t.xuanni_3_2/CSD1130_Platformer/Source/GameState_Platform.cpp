@@ -677,7 +677,7 @@ void GameStatePlatformUpdate(void)
 	if (gGameStateCurr == GS_PLATFORM2)
 	{
 		AEVec2 cam;
-		cam.x = pHero->posCurr.x * ((f32)AEGetWindowWidth() / BINARY_MAP_WIDTH * 2) - (f32)AEGetWindowWidth() / 2;
+		cam.x = pHero->posCurr.x * ((f32)AEGetWindowWidth() / BINARY_MAP_WIDTH   * 2) - (f32)AEGetWindowWidth() / 2;
 		cam.y = pHero->posCurr.y * ((f32)AEGetWindowHeight() / BINARY_MAP_HEIGHT * 2) - (f32)AEGetWindowHeight() / 2;
 
 		cam.x = AEClamp(cam.x, 0, (f32)AEGetWindowWidth());

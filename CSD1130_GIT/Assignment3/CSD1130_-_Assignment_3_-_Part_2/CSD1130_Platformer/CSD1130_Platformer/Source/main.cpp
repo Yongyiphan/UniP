@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*!
 \file		main.cpp
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	February 01, 20xx
-\brief
+\author 	Edgar Yong
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	March 6, 2023
+\brief		This file contains the definition for the main.cpp
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
@@ -23,6 +23,8 @@ s8		FontID;
 f32		winw;
 f32		winh;
 
+#include <iostream>
+
 
 /******************************************************************************/
 /*!
@@ -38,11 +40,13 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 	
 	AESysSetWindowTitle("CSD1130 Platformer");
 	//Create your font here, and use it for all your levels
-	FontID = AEGfxCreateFont("../Resources/Fonts/Arial Italic.ttf", 72);
+	FontID = AEGfxCreateFont("../Resources/Fonts/Arial Italic.ttf", 25);
 	winw = (f32)AEGetWindowWidth();
 	winh = (f32)AEGetWindowHeight();
+	std::cout << winw << " " << winh << std::endl;
 
-	GameStateMgrInit(GS_LEVEL1);
+	//GameStateMgrInit(GS_LEVEL2);
+	GameStateMgrInit(GS_MAINMENU);
 
 	while(gGameStateCurr != GS_QUIT)
 	{
@@ -75,7 +79,7 @@ int WINAPI WinMain(HINSTANCE instanceH, HINSTANCE prevInstanceH, LPSTR command_l
 			AESysFrameEnd();
 
 			// check if forcing the application to quit
-			if ((AESysDoesWindowExist() == false) || AEInputCheckTriggered(AEVK_ESCAPE))
+			if (AESysDoesWindowExist() == false)
 				gGameStateNext = GS_QUIT;
 
 			g_dt = (f32)AEFrameRateControllerGetFrameTime();
