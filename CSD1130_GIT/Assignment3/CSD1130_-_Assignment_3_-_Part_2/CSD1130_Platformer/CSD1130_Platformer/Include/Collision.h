@@ -1,12 +1,13 @@
 /******************************************************************************/
 /*!
 \file		Collision.h
-\author 	DigiPen
-\par    	email: digipen\@digipen.edu
-\date   	February 01, 20xx
-\brief
+\author 	Edgar Yong
+\par    	email: y.yiphanedgar\@digipen.edu
+\date   	March 6, 2023
+\brief		This file contains definition for the Axis Aligned Bounding Box Collision 
+			between two rectangle.
 
-Copyright (C) 20xx DigiPen Institute of Technology.
+Copyright (C) 2023 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the
 prior written consent of DigiPen Institute of Technology is prohibited.
  */
@@ -17,7 +18,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 /**************************************************************************/
 /*!
-
+	Check for collision between two rectangle object using bounding box	
 	*/
 /**************************************************************************/
 struct AABB
