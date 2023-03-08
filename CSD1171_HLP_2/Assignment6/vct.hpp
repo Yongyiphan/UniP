@@ -8,9 +8,6 @@ namespace hlp2 {
 
 // provide definition of class template vector:
 // 1) Start with the correct implementation of assignment 6.
-// 2) Don't forget to add necessary header files [except <vector>].
-//    Make sure to remove the previous line because the grader will
-//    not allow text <vector> to be present in your source file [remove this line too!!!].
 // 3) Add member function: void swap(vector&);
 // 4) Rewrite [if necessary] copy assignment operator overloads to follow
 //    the copy-and-swap idiom.
@@ -27,7 +24,7 @@ namespace hlp2 {
 //    block for each function you're defining (including the ones that have been previously implemented).
 
 template <typename T>
-class vector{
+class vector {
 public:
   // types to declare: size_type, value_type,
   using size_type = size_t;
@@ -45,28 +42,24 @@ public:
   vector(std::initializer_list<T> rhs);
   vector(vector<T> const&rhs);
   ~vector();
-
-  vector<T>& operator=(vector<T> const& rhs);
-  vector<T>& operator=(std::initializer_list<int> rhs);
-  vector<T>& operator=(std::initializer_list<T> rhs);
-
-
+  
+  vector& operator=(vector const& rhs);
+  vector& operator=(std::initializer_list<int> rhs);
+  vector& operator=(std::initializer_list<T> rhs);
   reference operator[](size_type i );
   const_reference operator[](size_type i) const;
-
-
+  
   void push_back(value_type value);
   void pop_back();
   void reserve(size_type newsize);
   void resize(size_type newsize);
-  void swap(vector<T>&rhs); //this == lhs;
-
+  void swap(const vector<T>&);
+  
   bool empty() const;
   size_type size() const;
   size_type capacity() const;
   size_type allocations() const;
-
-
+  
   pointer begin();
   pointer end();
   const_pointer begin() const;
@@ -80,7 +73,6 @@ private:
   size_type space;  // the allocated size (in terms of elements) of the array
   size_type allocs; // number of times space has been updated
   pointer   data;   // the dynamically allocated array (int*)
-
 };
 
 } // namespace hlp2
