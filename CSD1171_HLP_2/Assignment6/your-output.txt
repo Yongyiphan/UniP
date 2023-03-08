@@ -1,0 +1,12 @@
+********** TestPushPop **********
+push/pop hlp2::Str
+Namaste Hello Bonjour Hola Annyeonghaseyo Nin Hao Konnichiwa Guten Tag [size=8, capacity=10, allocs=2]
+pop_back strings until empty:
+Namaste Hello Bonjour Hola Annyeonghaseyo Nin Hao Konnichiwa [size=7, capacity=10, allocs=2]
+Namaste Hello Bonjour Hola Annyeonghaseyo Nin Hao [size=6, capacity=10, allocs=2]
+Namaste Hello Bonjour Hola Annyeonghaseyo [size=5, capacity=10, allocs=2]
+Namaste Hello Bonjour Hola [size=4, capacity=10, allocs=2]
+Namaste Hello Bonjour [size=3, capacity=10, allocs=2]
+Namaste Hello [size=2, capacity=10, allocs=2]
+Namaste [size=1, capacity=10, allocs=2]
+[size=0, capacity=10, allocs=2]

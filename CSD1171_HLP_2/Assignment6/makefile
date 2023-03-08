@@ -5,9 +5,11 @@ CXX_FLAGS = -std=c++17 -pedantic-errors -Wall -Wextra -Werror
 # flag to linker to make it link with math library
 LDLIBS    = -lm
 # list of object files
-OBJS      = vector-driver.o vector.o
+OBJS      = vct-driver.o str.o
 # name of executable program
-EXEC      = vector.out
+EXEC      = vct.out
+
+ODIR 	  = output
 
 # by convention the default target (the target that is built when writing
 # only make on the command line) should be called all and it should
@@ -21,22 +23,20 @@ all : $(EXEC)
 
 # this rule says that target $(EXEC) will be built if prerequisite
 # files $(OBJS) have changed more recently than $(EXEC)
-# text $(EXEC) will be replaced with value vector.out
+# text $(EXEC) will be replaced with value vct.out
 # text $(OBJS) will be substituted with list of prerequisites in line 10
 # line 31 says to build $(EXEC) using command $(CXX) with
 # options $(CXX_FLAGS) specified on line 6
 $(EXEC) : $(OBJS)
 	$(CXX) $(CXX_FLAGS) $(OBJS) -o $(EXEC) $(LDLIBS)
 
-# target vector-driver.o depends on both vector-driver.cpp and vector.hpp
+# target vct-driver.o depends on both vct-driver.cpp and vct.hpp
 # and is created with command $(CXX) given the options $(CXX_FLAGS)
-vector-driver.o : vector-driver.cpp vector.hpp
-	$(CXX) $(CXX_FLAGS) -c vector-driver.cpp -o vector-driver.o
+vct-driver.o : vct-driver.cpp vct.hpp str.hpp
+	$(CXX) $(CXX_FLAGS) -c vct-driver.cpp -o vct-driver.o
 	
-# target vector.o depends on both vector.cpp and vector.hpp
-# and is created with command $(CXX) given the options $(CXX_FLAGS)
-vector.o : vector.cpp vector.hpp
-	$(CXX) $(CXX_FLAGS) -c vector.cpp -o vector.o
+str.o : str.hpp str.cpp
+	$(CXX) $(CXX_FLAGS) -c str.cpp -o str.o
 
 # says that clean is not the name of a target file but simply the name for
 # a recipe to be executed when an explicit request is made
@@ -59,23 +59,25 @@ rebuild :
 .PHONY : test
 test1 : $(EXEC)
 	./$(EXEC) 1 > your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./test1.txt
+	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./${ODIR}/test1.txt
 test2 : $(EXEC)
 	./$(EXEC) 2 > your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./test2.txt
+	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./${ODIR}/test2.txt
 test3 : $(EXEC)
 	./$(EXEC) 3 > your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./test3.txt
+	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./${ODIR}/test3.txt
 test4 : $(EXEC)
 	./$(EXEC) 4 > your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./test4.txt
-test5 : $(EXEC)
-	./$(EXEC) 5 > your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./test5.txt
+	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./${ODIR}/test4.txt
 testall : $(EXEC)
 	./$(EXEC) 1 > your-output.txt
 	./$(EXEC) 2 >> your-output.txt
 	./$(EXEC) 3 >> your-output.txt
 	./$(EXEC) 4 >> your-output.txt
-	./$(EXEC) 5 >> your-output.txt
-	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./output.txt
+	diff -y --strip-trailing-cr --suppress-common-lines ./your-output.txt ./${ODIR}/test0.txt
+
+totest = 1
+debug: $(EXEC)
+	$(MAKE)
+#	valgrind -s --leak-check=full --show-leak-kinds=all --log-file=valgrind.txt ./${EXEC} ${totest}
+	valgrind -s --log-file=valgrind.txt ./${EXEC} ${totest} > ./your-output.txt
