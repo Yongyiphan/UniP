@@ -1,106 +1,14 @@
-==1132== Memcheck, a memory error detector
-==1132== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1132== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==1132== Command: ./vct.out 1
-==1132== Parent PID: 1131
-==1132== 
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DA2C: hlp2::vector<hlp2::Str>::vector(std::initializer_list<hlp2::Str> const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A97D: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10E813: hlp2::vector<hlp2::Str>::reserve(unsigned long) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB0C: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A9CB: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A9CB: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10AA09: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10AA47: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== 
-==1132== HEAP SUMMARY:
-==1132==     in use at exit: 113 bytes in 13 blocks
-==1132==   total heap usage: 30 allocs, 17 frees, 77,266 bytes allocated
-==1132== 
-==1132== LEAK SUMMARY:
-==1132==    definitely lost: 113 bytes in 13 blocks
-==1132==    indirectly lost: 0 bytes in 0 blocks
-==1132==      possibly lost: 0 bytes in 0 blocks
-==1132==    still reachable: 0 bytes in 0 blocks
-==1132==         suppressed: 0 bytes in 0 blocks
-==1132== Rerun with --leak-check=full to see details of leaked memory
-==1132== 
-==1132== Use --track-origins=yes to see where uninitialised values come from
-==1132== ERROR SUMMARY: 13 errors from 5 contexts (suppressed: 0 from 0)
-==1132== 
-==1132== 1 errors in context 1 of 5:
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10AA47: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== 
-==1132== 1 errors in context 2 of 5:
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10AA09: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== 
-==1132== 1 errors in context 3 of 5:
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A9CB: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== 
-==1132== 5 errors in context 4 of 5:
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10E813: hlp2::vector<hlp2::Str>::reserve(unsigned long) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB0C: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A9CB: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== 
-==1132== 5 errors in context 5 of 5:
-==1132== Conditional jump or move depends on uninitialised value(s)
-==1132==    at 0x10FAC5: hlp2::Str::~Str() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10FB45: hlp2::Str::operator=(hlp2::Str const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DB31: hlp2::vector<hlp2::Str>::push_back(hlp2::Str) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10DA2C: hlp2::vector<hlp2::Str>::vector(std::initializer_list<hlp2::Str> const&) (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A97D: (anonymous namespace)::TestPushPop() (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132==    by 0x10A843: main (in /mnt/c/Users/edgar/Documents/Personal Progamming/UniP/CSD1171_HLP_2/Assignment6/vct.out)
-==1132== 
-==1132== ERROR SUMMARY: 13 errors from 5 contexts (suppressed: 0 from 0)
+==145== Memcheck, a memory error detector
+==145== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==145== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==145== Command: ./vct.out 1
+==145== Parent PID: 144
+==145== 
+==145== 
+==145== HEAP SUMMARY:
+==145==     in use at exit: 0 bytes in 0 blocks
+==145==   total heap usage: 45 allocs, 45 frees, 73,713 bytes allocated
+==145== 
+==145== All heap blocks were freed -- no leaks are possible
+==145== 
+==145== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

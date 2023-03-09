@@ -1,3 +1,37 @@
+/*!*****************************************
+ \file      vct.cpp
+ \author    Edgar Yong
+ \par       DP email: y.yiphanedgar\@digipen.edu
+ \par       Course: CSD 1171
+ \par       Programming Assignment 6
+ \date      09-03-2023
+ \brief     File-header Documentation for vct.cpp
+ \brief     This file contains the implementation of a vector template class
+            with member functions that allows
+              constructors using:
+                1. default constructor with no parameters
+                2. a vector using reference to another vector object
+                3. a vector using a initializer_list object
+              destructor
+              operator copy assignment overload that allows assignment using
+                1. reference to another vector
+                2. initializer_list object
+              operator subsript overload with non-const and const version
+              Setter functions:
+                push_back() -> adds a value to vector
+                pop_back()  -> remove the last element of vector
+                reserve()   -> allocate memory of the vector
+                resize()    -> resize the vector
+                swap()      -> swap contents between two vector
+              Getter functions:
+                empty()   -> checks if vector is empty
+                size()    -> returns the no. of elements in the vector
+                capacity()-> returns the total memory space allocated to the vector
+                allocations() -> returns the number of times memory has been allocated to the vector
+                begin()   -> Pointer to the start of vector (with const variant)
+                end()     -> Pointer to the end of vector (with const variant)
+
+*/
 ////////////////////////////////////////////////////////////////////////////////
 #ifndef VCT_HPP
 #define VCT_HPP
@@ -5,24 +39,8 @@
 #include "initializer_list"
 #include <cstdlib>
 
-// provide definition of class template vector:
-// 1) Start with the correct implementation of assignment 6.
-// 3) Add member function: void swap(vector&);
-// 4) Rewrite [if necessary] copy assignment operator overloads to follow
-//    the copy-and-swap idiom.
 namespace hlp2 {
 
-// 5) Add member function: void pop_back();
-//    What does pop_back() do? It removes the last element in the vector, effectively reducing the container size by one.
-// 6) Use your own tests to make sure your class does the right thing for
-//    a basic type such as int, standard library type std::string, and user-defined type hlp2::Str
-// 7) Just as in class lecture, use these concrete class definitions to define the class template.
-// 8) Your implementation must define member functions OUTSIDE the class definition.
-//    You will need this practice to correctly answer final test questions!!!
-// 9) Make sure your implementation/submission doesn't include <vector>.
-//    It is a good idea to delete the previous line once you've read it!!!
-// 10) The file must contain a file header documentation block and a file documentation
-//    block for each function you're defining (including the ones that have been previously implemented).
 
 template <typename T>
 class vector {
@@ -37,32 +55,144 @@ public:
   using const_pointer   = const value_type*;
 
 public:
+  /*
+  \brief      Default constructor
+  */
   vector();
+
+  /*
+  \brief      Constructor taking in another vector object
+  \param[in]  rhs -> reference to target vector object
+  */
   vector(vector<T> const &rhs);
+
+  /*
+  \brief      Constructor taking in a initializer_list of type T object to fill in vector
+  \param[in]  rhs -> reference to target initiazliser list object
+  */
   vector(std::initializer_list<T> const& rhs);
+
+  /*
+  \brief      Default deconstructor
+  */
   ~vector();
   
+
+  /*
+  \brief      Operator overload for assignment
+  \param[in]  rhs -> reference object to be assigned with
+  \return     reference to current object
+  */
   vector&         operator=(vector const& rhs);
+
+  /*
+  \brief      Operator overload for assignment
+  \param[in]  rhs -> reference to object to be assigned with
+  \return     reference to current object
+  */
   vector&         operator=(std::initializer_list<T> const& rhs);
+
+  /*
+  \brief      Operator overload for subscript
+  \param[in]  i   -> index to access vector at
+  \return     value at target index of vector
+  */
   reference       operator[](size_type i )     ; 
+
+  /*
+  \brief      Operator overload for subscript
+  \param[in]  i   -> index to access vector at
+  \return     value at target index of vector
+  */
   const_reference operator[](size_type i) const; 
   
-  void push_back(T);
+  /*
+  \brief      Push a given value to the end of the vector
+  \param[in]  value -> value to be added to the vector
+  */
+  void push_back(T value);
+
+  /*
+  \brief      Remove last element of the vector
+  */
   void pop_back();
+
+  /*
+  \brief      Allocate memory for vector
+  \param[in]  n -> number of elements to be allocated memory for, in vector
+  */
   void reserve(size_type n);
+
+  /*
+  \brief      Resize the vector
+  \param[in]  n -> target size to resize vector to
+  */
   void resize(size_type n);
+
+  /*
+  \brief      swap the content of two vector
+  \param[in]  rhs -> reference to target vector to swap contents with
+  */
   void swap(vector&rhs);
-  
+
+  /*
+  \brief      Checks if vector is empty
+  \return     true if vector is empty
+  */ 
   bool      empty()       const;
+
+  /*
+  brief       Get the number of elements in vector
+  \return     number of elements in vector
+  */
   size_type size()        const;
+
+  /*
+  \brief      Get the memory/space allocated to vector
+  \return     number of space allocated to vector
+  */
   size_type capacity()    const;
+
+  /*
+  \brief      Get the number of allocations vector went through
+  \return     Number of time allocations is done with vector
+  */
   size_type allocations() const;
   
+  /*
+  \brief      Pointer to start of vector
+  \return     Pointer to start of vector
+  */
   pointer       begin()        ;
+  
+  /*
+  \brief      Pointer to start of vector
+  \return     Pointer to start of vector
+  */
   const_pointer begin()   const;
+  
+  /*
+  \brief      Pointer to start of vector
+  \return     Pointer to start of vector
+  */
   const_pointer cbegin()  const;
+  
+  /*
+  \brief      Pointer to end of vector
+  \return     Pointer to end of vector
+  */
   pointer       end()          ;
+  
+  /*
+  \brief      Pointer to end of vector
+  \return     Pointer to end of vector
+  */
   const_pointer end()     const;
+  
+  /*
+  \brief      Pointer to end of vector
+  \return     Pointer to end of vector
+  */
   const_pointer cend()    const;
   
 
@@ -86,20 +216,23 @@ vector<T>::vector(std::initializer_list<T> const& rhs){
   reserve(static_cast<size_type>(rhs.size()));
   for(const T&i:rhs){push_back(i);}
 }
+
 template <class T>
-vector<T>::~vector(){if(data)std::free(data);}
+vector<T>::~vector(){if(data)delete[] data;}
 
 
 template <class T>
 vector<T>&          vector<T>::operator=(vector const& rhs){
   vector temp{rhs};
   swap(temp);
+  allocs = temp.allocations() + 1;
   return *this;
 }
 template <class T>
 vector<T>&          vector<T>::operator=(std::initializer_list<T>const& rhs){
   vector temp{rhs};
   swap(temp);
+  allocs = temp.allocations() + 1;
   return *this;
 }
 
@@ -123,11 +256,11 @@ template <class T>
 void vector<T>::reserve(size_type n){
     if(n <= space)
         return;
-    pointer na = (pointer)std::malloc(sizeof(T) * n);
+    pointer na = new T[n];
     allocs++;
     if(data){
         for(size_type i{}; i < sz; na[i] = data[i], i++);
-        std::free(data);
+        delete[] data;
     }
     data = na;
     space = n;
@@ -164,10 +297,13 @@ void vector<T>::swap(vector& rhs){
   rhs.space   = space;
   rhs.allocs  = allocs;
 
+
   data    = tdata;
   sz      = tsz;
   space   = tspace;
   allocs  = tallocs;
+
+   
 
 }
 
@@ -175,27 +311,27 @@ void vector<T>::swap(vector& rhs){
 template <class T>
 typename vector<T>::reference         vector<T>::operator[](size_type i )      {return *(data + i);}
 template <class T>
-typename vector<T>::const_reference   vector<T>::operator[](size_type i) const {return *(data + i);}
+typename vector<T>::const_reference   vector<T>::operator[](size_type i)  const{return *(data + i);}
 template <class T>
-bool      vector<T>::empty()                           const{return sz?false:true;}
+bool                                  vector<T>::empty()                  const{return sz?false:true;}
 template <class T>
-typename vector<T>::size_type vector<T>::size()        const{return sz;}
+typename vector<T>::size_type         vector<T>::size()                   const{return sz;}
 template <class T>
-typename vector<T>::size_type vector<T>::capacity()    const{return space;}
+typename vector<T>::size_type         vector<T>::capacity()               const{return space;}
 template <class T>
-typename vector<T>::size_type vector<T>::allocations() const{return allocs;}
+typename vector<T>::size_type         vector<T>::allocations()            const{return allocs;}
 template <class T>
-typename vector<T>::pointer       vector<T>::begin()        {return data;}
+typename vector<T>::pointer           vector<T>::begin()                       {return data;}
 template <class T>
-typename vector<T>::const_pointer vector<T>::begin()   const{return data;}
+typename vector<T>::const_pointer     vector<T>::begin()                  const{return data;}
 template <class T>
-typename vector<T>::const_pointer vector<T>::cbegin()  const{return data;}
+typename vector<T>::const_pointer     vector<T>::cbegin()                 const{return data;}
 template <class T>
-typename vector<T>::pointer       vector<T>::end()          {return data + sz;}
+typename vector<T>::pointer           vector<T>::end()                         {return data + sz;}
 template <class T>
-typename vector<T>::const_pointer vector<T>::end()     const{return data + sz;}
+typename vector<T>::const_pointer     vector<T>::end()                    const{return data + sz;}
 template <class T>
-typename vector<T>::const_pointer vector<T>::cend()    const{return data + sz;}
+typename vector<T>::const_pointer     vector<T>::cend()                   const{return data + sz;}
 
 }
 #endif // VCT_HPP

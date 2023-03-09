@@ -65,24 +65,24 @@ void TestPushPop() {
   std::cout << "********** TestPushPop **********\n";
 
   // dealing with ints
-  //std::cout << "push/pop int\n";
-  //hlp2::vector<int> a;
-  //std::cout << "a: " << a;
-  //std::cout << "push_back 5 ints\n";
-  //for (int i : {-1, 1, -2, 2, -3}) { a.push_back(i); Print(a); }
-  //std::cout << "now push_back 5 more ints:\n";
-  //for (int i : {-10, 10, -20, 20, 30}) { a.push_back(-i); Print(a); }
-  //std::cout << "now pop_back ints until empty:\n";
-  //while (!a.empty()) { a.pop_back(); Print(a); }
-  //std::cout << a << '\n';
+  std::cout << "push/pop int\n";
+  hlp2::vector<int> a;
+  std::cout << "a: " << a;
+  std::cout << "push_back 5 ints\n";
+  for (int i : {-1, 1, -2, 2, -3}) { a.push_back(i); Print(a); }
+  std::cout << "now push_back 5 more ints:\n";
+  for (int i : {-10, 10, -20, 20, 30}) { a.push_back(-i); Print(a); }
+  std::cout << "now pop_back ints until empty:\n";
+  while (!a.empty()) { a.pop_back(); Print(a); }
+  std::cout << a << '\n';
 
   // deal with chars
-  //std::cout << "push/pop char\n";
-  //hlp2::vector<char> b{'s','i','n','g','a'};
-  //b.push_back('p'); b.push_back('o'); b.push_back('r'); b.push_back('e');
-  //std::cout << b << "pop_back chars until empty:\n";
-  //while (!b.empty()) { b.pop_back(); std::cout << b; }
-  //std::cout << b << "\n";
+  std::cout << "push/pop char\n";
+  hlp2::vector<char> b{'s','i','n','g','a'};
+  b.push_back('p'); b.push_back('o'); b.push_back('r'); b.push_back('e');
+  std::cout << b << "pop_back chars until empty:\n";
+  while (!b.empty()) { b.pop_back(); std::cout << b; }
+  std::cout << b << "\n";
 
   // deal with hlp2::Str
   std::cout << "push/pop hlp2::Str\n";
@@ -90,25 +90,25 @@ void TestPushPop() {
   c.push_back("Nin Hao"); c.push_back("Konnichiwa"); c.push_back("Guten Tag");
   std::cout << c << "pop_back strings until empty:\n";
   while (!c.empty()) { c.pop_back(); std::cout << c; }
-  //Print(c); std::cout << "\n";
+  Print(c); std::cout << "\n";
 
   // deal with doubles
-  //std::cout << "push/pop double\n";
-  //hlp2::vector<double> d{2.1, -3.2, 4.3, -5.4, 5.5, -6.6, 7.7, -8.8};
-  //d.push_back(9.9); d.push_back(10.0);
-  //std::cout << d << "pop_back doubles until empty:\n";
-  //while (!d.empty()) { d.pop_back(); std::cout << d; }
-  //std::cout << d << "\n";
+  std::cout << "push/pop double\n";
+  hlp2::vector<double> d{2.1, -3.2, 4.3, -5.4, 5.5, -6.6, 7.7, -8.8};
+  d.push_back(9.9); d.push_back(10.0);
+  std::cout << d << "pop_back doubles until empty:\n";
+  while (!d.empty()) { d.pop_back(); std::cout << d; }
+  std::cout << d << "\n";
 
-  //std::cout << "push/pop pair<hlp2::Str, std::string>\n";
-  //hlp2::vector<std::pair<hlp2::Str, std::string>> e {
-  //  std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR"),
-  //  std::make_pair("Vancouver", "BC"), std::make_pair("Santa Barbara", "CA")
-  //};
-  //e.push_back(std::make_pair("Toronto", "ON"));   e.push_back(std::make_pair("Montreal", "PQ"));
-  //std::cout << e << "pop_back pair<hlp2::Str, std::string> until empty:\n";
-  //while (!e.empty()) { e.pop_back(); Print(e); }
-  //std::cout << e;
+  std::cout << "push/pop pair<hlp2::Str, std::string>\n";
+  hlp2::vector<std::pair<hlp2::Str, std::string>> e {
+    std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR"),
+    std::make_pair("Vancouver", "BC"), std::make_pair("Santa Barbara", "CA")
+  };
+  e.push_back(std::make_pair("Toronto", "ON"));   e.push_back(std::make_pair("Montreal", "PQ"));
+  std::cout << e << "pop_back pair<hlp2::Str, std::string> until empty:\n";
+  while (!e.empty()) { e.pop_back(); Print(e); }
+  std::cout << e;
 }
 
 void TestSubscripts() {
@@ -154,49 +154,49 @@ void TestSubscripts() {
 void TestCopyAssign() {
   std::cout << "\n********** TestCopyAssign **********\n";
   
-  //{
-  //  // call hlp2::vector<T>::swap()
-  //  hlp2::vector<int> a1{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, a2;
-  //  a2.push_back(1); a2.push_back(3); a2.push_back(5); a2.push_back(7);
-  //  std::cout << "before vector<T>::swap\n" << "a1: " << a1 << "a2: " << a2;
-  //  a2.swap(a1);
-  //  std::cout << "after vector<T>::swap\n" << "a1: " << a1 << "a2: " << a2 << '\n';
-  //}
+  {
+    // call hlp2::vector<T>::swap()
+    hlp2::vector<int> a1{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, a2;
+    a2.push_back(1); a2.push_back(3); a2.push_back(5); a2.push_back(7);
+    std::cout << "before vector<T>::swap\n" << "a1: " << a1 << "a2: " << a2;
+    a2.swap(a1);
+    std::cout << "after vector<T>::swap\n" << "a1: " << a1 << "a2: " << a2 << '\n';
+  }
 
-  //{
-  //  // call ::swap<T> [which uses hlp2::vector<T>::op=()]
-  //  hlp2::vector<int> a1{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, a2{1, 3, 5, 7};
-  //  std::cout << "before ::swap\n" << "a1: " << a1 << "a2: " << a2;
-  //  ::swap(a1, a2);
-  //  std::cout << "after ::swap\n"  << "a1: " << a1 << "a2: " << a2 << '\n';
-  //}
+  {
+    // call ::swap<T> [which uses hlp2::vector<T>::op=()]
+    hlp2::vector<int> a1{0, 2, 4, 6, 8, 10, 12, 14, 16, 18}, a2{1, 3, 5, 7};
+    std::cout << "before ::swap\n" << "a1: " << a1 << "a2: " << a2;
+    ::swap(a1, a2);
+    std::cout << "after ::swap\n"  << "a1: " << a1 << "a2: " << a2 << '\n';
+  }
 
-  //{
-  //  // call hlp2::vector<T>::swap()
-  //  hlp2::vector<char> b1{'<','~','@','!','+','e','?','#','&','%'}, b2;
-  //  b2.push_back('*'); b2.push_back('^'); b2.push_back('('); b2.push_back(')'); b2.push_back('>');
-  //  std::cout << "before hlp2::vector<T>::swap\n" << "b1: " << b1 << "b2: " << b2;
-  //  b2.swap(b1);
-  //  std::cout << "after hlp2::vector<T>::swap\n"  << "b1: " << b1 << "b2: " << b2 << '\n';
-  //}
+  {
+    // call hlp2::vector<T>::swap()
+    hlp2::vector<char> b1{'<','~','@','!','+','e','?','#','&','%'}, b2;
+    b2.push_back('*'); b2.push_back('^'); b2.push_back('('); b2.push_back(')'); b2.push_back('>');
+    std::cout << "before hlp2::vector<T>::swap\n" << "b1: " << b1 << "b2: " << b2;
+    b2.swap(b1);
+    std::cout << "after hlp2::vector<T>::swap\n"  << "b1: " << b1 << "b2: " << b2 << '\n';
+  }
 
-  //{
-  //  // call ::swap<T> [which uses hlp2::vector<T>::op=()]
-  //  hlp2::vector<char> b1{'<','~','@','!','+','e','?','#','&','%','*','^','(',')','>'}, b2{};
-  //  std::cout << "before ::swap\n" << "b1: " << b1 << "b2: " << b2;
-  //  //::swap(b1, b2);
-  //  ::swap(b1, b2);
-  //  std::cout << "after ::swap\n"  << "b1: " << b1 << "b2: " << b2 << '\n';
-  //}
+  {
+    // call ::swap<T> [which uses hlp2::vector<T>::op=()]
+    hlp2::vector<char> b1{'<','~','@','!','+','e','?','#','&','%','*','^','(',')','>'}, b2{};
+    std::cout << "before ::swap\n" << "b1: " << b1 << "b2: " << b2;
+    //::swap(b1, b2);
+    ::swap(b1, b2);
+    std::cout << "after ::swap\n"  << "b1: " << b1 << "b2: " << b2 << '\n';
+  }
 
-  //{
-  //  // call hlp2::vector<T>::swap()
-  //  hlp2::vector<std::string> c1{"Hello", "Bonjour", "Hola", "Nin hao", "Konnichiwa"}, c2{};
-  //  c2.push_back("Guten Tag"); c2.push_back("Namaste");
-  //  std::cout << "before hlp2::vector<T>::swap\n" << "c1: " << c1 << "c2: " << c2;
-  //  c2.swap(c1);
-  //  std::cout << "after hlp2::vector<T>::swap\n"  << "c1: " << c1 << "c2: " << c2 << '\n';
-  //}
+  {
+    // call hlp2::vector<T>::swap()
+    hlp2::vector<std::string> c1{"Hello", "Bonjour", "Hola", "Nin hao", "Konnichiwa"}, c2{};
+    c2.push_back("Guten Tag"); c2.push_back("Namaste");
+    std::cout << "before hlp2::vector<T>::swap\n" << "c1: " << c1 << "c2: " << c2;
+    c2.swap(c1);
+    std::cout << "after hlp2::vector<T>::swap\n"  << "c1: " << c1 << "c2: " << c2 << '\n';
+  }
 
   {
     // call ::swap<T> [which uses hlp2::vector<T>::op=()]
@@ -207,44 +207,44 @@ void TestCopyAssign() {
     std::cout << "after ::swap\n"  << "c1: " << c1 << "c2: " << c2 << '\n';
   }
 
-  //{
-  //  // call hlp2::vector<T>::swap()
-  //  hlp2::vector<double> d1{2.05, 4.05, 6.05, 8.05, 10.05, 12.05}, d2{-12.1,-12.2,12.3};
-  //  d2.push_back(-12.4); d2.push_back(12.5); d2.push_back(-12.6);
-  //  std::cout << "before hlp2::vector<T>::swap\n" << "d1: " << d1 << "d2: " << d2;
-  //  d2.swap(d1);
-  //  std::cout << "after hlp2::vector<T>::swap\n"  << "d1: " << d1 << "d2: " << d2 << '\n';
-  //}
+  {
+    // call hlp2::vector<T>::swap()
+    hlp2::vector<double> d1{2.05, 4.05, 6.05, 8.05, 10.05, 12.05}, d2{-12.1,-12.2,12.3};
+    d2.push_back(-12.4); d2.push_back(12.5); d2.push_back(-12.6);
+    std::cout << "before hlp2::vector<T>::swap\n" << "d1: " << d1 << "d2: " << d2;
+    d2.swap(d1);
+    std::cout << "after hlp2::vector<T>::swap\n"  << "d1: " << d1 << "d2: " << d2 << '\n';
+  }
 
-  //{
-  //  // call ::swap<T> [which uses hlp2::vector<T>::op=()]
-  //  hlp2::vector<double> d1{2.05, 4.05, 6.05, 8.05, 10.05, 12.05}, d2{-12.1,-12.2,12.3};
-  //  d2.push_back(-12.4); d2.push_back(12.5); d2.push_back(-12.6);
-  //  std::cout << "before ::swap\n" << "d1: " << d1 << "d2: " << d2;
-  //  ::swap(d1, d2);
-  //  std::cout << "after ::swap\n"  << "d1: " << d1 << "d2: " << d2 << '\n';
-  //}
+  {
+    // call ::swap<T> [which uses hlp2::vector<T>::op=()]
+    hlp2::vector<double> d1{2.05, 4.05, 6.05, 8.05, 10.05, 12.05}, d2{-12.1,-12.2,12.3};
+    d2.push_back(-12.4); d2.push_back(12.5); d2.push_back(-12.6);
+    std::cout << "before ::swap\n" << "d1: " << d1 << "d2: " << d2;
+    ::swap(d1, d2);
+    std::cout << "after ::swap\n"  << "d1: " << d1 << "d2: " << d2 << '\n';
+  }
 
   
-  //{
-  //  using PSS = std::pair<std::string, hlp2::Str>;
-  //  hlp2::vector<PSS> e1{std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR")}, e2;
-  //  e2.push_back(std::make_pair("Vancouver", "BC")); e2.push_back(std::make_pair("Santa Barbara", "CA"));
-  //  e2.push_back(std::make_pair("Toronto", "ON"));   e2.push_back(std::make_pair("Montreal", "PQ"));
-  //  std::cout << "before hlp2::vector<T>::swap\n" << "e1: " << e1 << "e2: " << e2;
-  //  e2.swap(e1);
-  //  std::cout << "after hlp2::vector<T>::swap\n"  << "e1: " << e1 << "e2: " << e2 << "\n";
-  //}
+  {
+    using PSS = std::pair<std::string, hlp2::Str>;
+    hlp2::vector<PSS> e1{std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR")}, e2;
+    e2.push_back(std::make_pair("Vancouver", "BC")); e2.push_back(std::make_pair("Santa Barbara", "CA"));
+    e2.push_back(std::make_pair("Toronto", "ON"));   e2.push_back(std::make_pair("Montreal", "PQ"));
+    std::cout << "before hlp2::vector<T>::swap\n" << "e1: " << e1 << "e2: " << e2;
+    e2.swap(e1);
+    std::cout << "after hlp2::vector<T>::swap\n"  << "e1: " << e1 << "e2: " << e2 << "\n";
+  }
 
-  //{
-  //  using PSS = std::pair<std::string, hlp2::Str>;
-  //  hlp2::vector<PSS> e1{std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR")}, e2;
-  //  e2.push_back(std::make_pair("Vancouver", "BC")); e2.push_back(std::make_pair("Santa Barbara", "CA"));
-  //  e2.push_back(std::make_pair("Toronto", "ON"));   e2.push_back(std::make_pair("Montreal", "PQ"));
-  //  std::cout << "before ::swap\n" << "e1: " << e1 << "e2: " << e2;
-  //  ::swap(e1, e2);
-  //  std::cout << "after ::swap\n"  << "e1: " << e1 << "e2: " << e2;
-  //}
+  {
+    using PSS = std::pair<std::string, hlp2::Str>;
+    hlp2::vector<PSS> e1{std::make_pair("Seattle", "WA"), std::make_pair("Portland", "OR")}, e2;
+    e2.push_back(std::make_pair("Vancouver", "BC")); e2.push_back(std::make_pair("Santa Barbara", "CA"));
+    e2.push_back(std::make_pair("Toronto", "ON"));   e2.push_back(std::make_pair("Montreal", "PQ"));
+    std::cout << "before ::swap\n" << "e1: " << e1 << "e2: " << e2;
+    ::swap(e1, e2);
+    std::cout << "after ::swap\n"  << "e1: " << e1 << "e2: " << e2;
+  }
 }
 
 void TestResize() {
