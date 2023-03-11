@@ -32,7 +32,7 @@ $(EXEC) : $(OBJS)
 
 # target array-driver.o depends on both array-driver.cpp and array.hpp
 # and is created with command $(CXX) given the options $(CXX_FLAGS)
-array-driver.o : array-driver.cpp array.hpp
+array-driver.o : array-driver.cpp array.hpp array.tpp
 	$(CXX) $(CXX_FLAGS) -c array-driver.cpp -o array-driver.o
 	
 
